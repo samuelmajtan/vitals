@@ -1,17 +1,18 @@
 //
-//  VitalsApp.swift
-//  Vitals
+// Copyright (c) 2026, Samuel Majtan
 //
-//  Created by Samuel Majtan on 03/03/2026.
+// SPDX-License-Identifier: GPL-3.0
 //
 
 import SwiftUI
 
 @main
 struct VitalsApp: App {
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootTabView()
         }
     }
+
 }

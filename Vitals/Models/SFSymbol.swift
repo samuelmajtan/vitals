@@ -1,0 +1,15 @@
+//
+// Copyright (c) 2026, Samuel Majtan
+//
+// SPDX-License-Identifier: GPL-3.0
+//
+
+import Foundation
+
+enum SF: String {
+    
+    case home = "house.circle"
+    case health = "heart.text.clipboard"
+    case search = "magnifyingglass"
+
+}

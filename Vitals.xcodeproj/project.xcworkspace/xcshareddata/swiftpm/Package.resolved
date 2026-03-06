@@ -1,0 +1,42 @@
+{
+  "originHash" : "165bade184d64b8019f5fdd0d794b38dcd3c0c1e03922f4caa4657df4efdc0ee",
+  "pins" : [
+    {
+      "identity" : "defaults",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sindresorhus/Defaults.git",
+      "state" : {
+        "revision" : "8192b0986611e105355a9433e99bf5c79469fbbd",
+        "version" : "9.0.6"
+      }
+    },
+    {
+      "identity" : "factory",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hmlongco/Factory.git",
+      "state" : {
+        "revision" : "ccc898f21992ebc130bc04cc197460a5ae230bcf",
+        "version" : "2.5.3"
+      }
+    },
+    {
+      "identity" : "navigator",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hmlongco/Navigator.git",
+      "state" : {
+        "revision" : "0d4afab37211a4b23ada5db5820e233568ee28b9",
+        "version" : "1.4.6"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swiftlang/swift-syntax",
+      "state" : {
+        "revision" : "4799286537280063c85a32f09884cfbca301b1a1",
+        "version" : "602.0.0"
+      }
+    }
+  ],
+  "version" : 3
+}

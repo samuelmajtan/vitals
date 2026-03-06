@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A52E842A2F5B7E42007F9DBE /* FactoryKit in Frameworks */ = {isa = PBXBuildFile; productRef = A52E84292F5B7E42007F9DBE /* FactoryKit */; };
+		A52E842C2F5B7E42007F9DBE /* FactoryTesting in Frameworks */ = {isa = PBXBuildFile; productRef = A52E842B2F5B7E42007F9DBE /* FactoryTesting */; };
+		A52E842F2F5B7E6D007F9DBE /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = A52E842E2F5B7E6D007F9DBE /* Defaults */; };
+		A52E84322F5B7E8B007F9DBE /* NavigatorUI in Frameworks */ = {isa = PBXBuildFile; productRef = A52E84312F5B7E8B007F9DBE /* NavigatorUI */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		A5ECFB622F57872600DA7137 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -29,7 +36,50 @@
 		A5ECFB6B2F57872600DA7137 /* VitalsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VitalsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A52E80622F5B498B007F9DBE /* Exceptions for "Configs" folder in "Vitals" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Base.xcconfig,
+				Development.xcconfig,
+				Production.xcconfig,
+				Staging.xcconfig,
+			);
+			target = A5ECFB532F57872500DA7137 /* Vitals */;
+		};
+		A52E806B2F5B4A41007F9DBE /* Exceptions for "Documentation" folder in "Vitals" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Building.md,
+				Patterns.md,
+				Testing.md,
+			);
+			target = A5ECFB532F57872500DA7137 /* Vitals */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		A539A52F2F5B47C6002DE204 /* Configs */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A52E80622F5B498B007F9DBE /* Exceptions for "Configs" folder in "Vitals" target */,
+			);
+			path = Configs;
+			sourceTree = "<group>";
+		};
+		A539A5302F5B47CB002DE204 /* Documentation */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A52E806B2F5B4A41007F9DBE /* Exceptions for "Documentation" folder in "Vitals" target */,
+			);
+			path = Documentation;
+			sourceTree = "<group>";
+		};
+		A539A5312F5B47D8002DE204 /* Packages */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Packages;
+			sourceTree = "<group>";
+		};
 		A5ECFB562F57872500DA7137 /* Vitals */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Vitals;
@@ -52,6 +102,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A52E84322F5B7E8B007F9DBE /* NavigatorUI in Frameworks */,
+				A52E842F2F5B7E6D007F9DBE /* Defaults in Frameworks */,
+				A52E842A2F5B7E42007F9DBE /* FactoryKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A52E842C2F5B7E42007F9DBE /* FactoryTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +129,9 @@
 		A5ECFB4B2F57872500DA7137 = {
 			isa = PBXGroup;
 			children = (
+				A539A52F2F5B47C6002DE204 /* Configs */,
+				A539A5302F5B47CB002DE204 /* Documentation */,
+				A539A5312F5B47D8002DE204 /* Packages */,
 				A5ECFB562F57872500DA7137 /* Vitals */,
 				A5ECFB642F57872600DA7137 /* VitalsTests */,
 				A5ECFB6E2F57872600DA7137 /* VitalsUITests */,
@@ -108,10 +165,16 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				A539A52F2F5B47C6002DE204 /* Configs */,
+				A539A5302F5B47CB002DE204 /* Documentation */,
+				A539A5312F5B47D8002DE204 /* Packages */,
 				A5ECFB562F57872500DA7137 /* Vitals */,
 			);
 			name = Vitals;
 			packageProductDependencies = (
+				A52E84292F5B7E42007F9DBE /* FactoryKit */,
+				A52E842E2F5B7E6D007F9DBE /* Defaults */,
+				A52E84312F5B7E8B007F9DBE /* NavigatorUI */,
 			);
 			productName = Vitals;
 			productReference = A5ECFB542F57872500DA7137 /* Vitals.app */;
@@ -135,6 +198,7 @@
 			);
 			name = VitalsTests;
 			packageProductDependencies = (
+				A52E842B2F5B7E42007F9DBE /* FactoryTesting */,
 			);
 			productName = VitalsTests;
 			productReference = A5ECFB612F57872600DA7137 /* VitalsTests.xctest */;
@@ -195,6 +259,11 @@
 			);
 			mainGroup = A5ECFB4B2F57872500DA7137;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A52E84282F5B7E42007F9DBE /* XCRemoteSwiftPackageReference "Factory" */,
+				A52E842D2F5B7E6D007F9DBE /* XCRemoteSwiftPackageReference "Defaults" */,
+				A52E84302F5B7E8B007F9DBE /* XCRemoteSwiftPackageReference "Navigator" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A5ECFB552F57872500DA7137 /* Products */;
 			projectDirPath = "";
@@ -329,6 +398,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -386,6 +456,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -592,6 +663,56 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A52E84282F5B7E42007F9DBE /* XCRemoteSwiftPackageReference "Factory" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Factory.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.3;
+			};
+		};
+		A52E842D2F5B7E6D007F9DBE /* XCRemoteSwiftPackageReference "Defaults" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Defaults.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.6;
+			};
+		};
+		A52E84302F5B7E8B007F9DBE /* XCRemoteSwiftPackageReference "Navigator" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Navigator.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A52E84292F5B7E42007F9DBE /* FactoryKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A52E84282F5B7E42007F9DBE /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = FactoryKit;
+		};
+		A52E842B2F5B7E42007F9DBE /* FactoryTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A52E84282F5B7E42007F9DBE /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = FactoryTesting;
+		};
+		A52E842E2F5B7E6D007F9DBE /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A52E842D2F5B7E6D007F9DBE /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
+		};
+		A52E84312F5B7E8B007F9DBE /* NavigatorUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A52E84302F5B7E8B007F9DBE /* XCRemoteSwiftPackageReference "Navigator" */;
+			productName = NavigatorUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A5ECFB4C2F57872500DA7137 /* Project object */;
 }
