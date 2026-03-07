@@ -42,6 +42,13 @@ extension RootTab {
             SF.search.rawValue
         }
     }
+    
+    var role: TabRole? {
+        if case .search = self {
+            return TabRole.search
+        }
+        return nil
+    }
 
 }
 
@@ -50,11 +57,11 @@ extension RootTab: NavigationDestination {
     var body: some View {
         switch self {
         case .home:
-            Text("Home")
+            HomeScreen()
         case .health:
-            Text("Health")
+            HealthScreen()
         case .search:
-            Text("Search")
+            SearchScreen()
         }
     }
 

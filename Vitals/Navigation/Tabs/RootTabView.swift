@@ -20,7 +20,7 @@ struct RootTabView: View {
     var body: some View {
         TabView {
             ForEach(RootTab.tabs) { tab in
-                Tab(tab.title, systemImage: tab.image) {
+                Tab(tab.title, systemImage: tab.image, role: tab.role) {
                     tab.body
                 }
             }
