@@ -11,6 +11,7 @@ enum RootTab: Equatable, Hashable {
     
     case home
     case health
+    case insights
     case search
     
 }
@@ -18,7 +19,7 @@ enum RootTab: Equatable, Hashable {
 extension RootTab {
 
     static var tabs: [RootTab] {
-        [.home, .health, .search]
+        [.home, .health, .insights, .search]
     }
 
     var title: String {
@@ -27,6 +28,8 @@ extension RootTab {
             "Home"
         case .health:
             "Health"
+        case .insights:
+            "Insights"
         case .search:
             "Search"
         }
@@ -38,6 +41,8 @@ extension RootTab {
             SF.home.rawValue
         case .health:
             SF.health.rawValue
+        case .insights:
+            SF.insights.rawValue
         case .search:
             SF.search.rawValue
         }
@@ -60,6 +65,8 @@ extension RootTab: NavigationDestination {
             HomeScreen()
         case .health:
             HealthScreen()
+        case .insights:
+            InsightsScreen()
         case .search:
             SearchScreen()
         }

@@ -10,6 +10,7 @@ struct KnownCheckpoints: NavigationCheckpoints {
     
     static var home: NavigationCheckpoint<Void> { checkpoint() }
     static var health: NavigationCheckpoint<Void> { checkpoint() }
+    static var insights: NavigationCheckpoint<Void> { checkpoint() }
     static var search: NavigationCheckpoint<Void> { checkpoint() }
 
 }

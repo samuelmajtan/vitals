@@ -10,6 +10,7 @@ enum KnownRoutes: NavigationRoutes {
     
     case home
     case health
+    case insights
     case search
     
 }

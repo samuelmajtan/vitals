@@ -10,6 +10,7 @@ enum SF: String {
     
     case home = "house.circle"
     case health = "heart.text.clipboard"
+    case insights = "waveform.path.ecg.rectangle"
     case search = "magnifyingglass"
 
 }
