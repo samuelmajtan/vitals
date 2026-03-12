@@ -5,3 +5,15 @@
 //
 
 import Foundation
+import UIKit
+
+final class VitalsAppDelegate: NSObject, UIApplicationDelegate {
+
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
+    ) -> Bool {
+       return true
+    }
+
+}

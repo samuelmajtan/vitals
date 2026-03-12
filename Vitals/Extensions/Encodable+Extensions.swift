@@ -41,7 +41,6 @@ extension Encodable {
             return
         }
         let prettyJSONString = String(decoding: encodedData, as: UTF8.self)
-
         print(prettyJSONString)
     }
 

@@ -7,8 +7,6 @@
 import Foundation
 import Defaults
 
-// MARK: - App
-
 extension Defaults.Keys {
     
 }

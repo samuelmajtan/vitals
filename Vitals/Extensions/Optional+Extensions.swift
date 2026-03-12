@@ -15,7 +15,7 @@ extension Optional: AnyOptional {
     /// let value: String? = nil
     /// print(value.isNil) // true
     /// ```
-    public var isNil: Bool { self == nil }
+    var isNil: Bool { self == nil }
 
     /// A Boolean value indicating whether the optional contains a non-`nil` value.
     ///
@@ -26,11 +26,11 @@ extension Optional: AnyOptional {
     /// let value: Int? = 42
     /// print(value.isNotNil) // true
     /// ```
-    public var isNotNil: Bool { self != nil }
+    var isNotNil: Bool { self != nil }
 
 }
 
-public extension Optional where Wrapped == String {
+extension Optional where Wrapped == String {
 
     /// Returns the wrapped string or an empty string if the optional is `nil`.
     var unwrapped: String {
