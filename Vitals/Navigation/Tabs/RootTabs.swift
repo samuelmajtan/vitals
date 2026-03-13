@@ -4,8 +4,8 @@
 // SPDX-License-Identifier: GPL-3.0
 //
 
-import NavigatorUI
 import SwiftUI
+import NavigatorUI
 
 enum RootTab: Equatable, Hashable {
     
