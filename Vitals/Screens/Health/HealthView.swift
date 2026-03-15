@@ -5,6 +5,7 @@
 //
 
 import SwiftUI
+import NavigatorUI
 
 struct HealthView: View {
     
@@ -25,7 +26,9 @@ struct HealthView: View {
     
     var body: some View {
         VStack {
-            Text("Health")
+            Button("Measurements") {
+                navigator.navigate(to: HealthDestinations.measurements)
+            }
         }
     }
     

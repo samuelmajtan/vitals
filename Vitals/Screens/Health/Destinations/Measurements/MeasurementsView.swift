@@ -25,7 +25,22 @@ struct MeasurementsView: View {
     // MARK: - View
     
     var body: some View {
-        Text("Measurements")
+        List {
+            ForEach(HealthCategory.allCases) { category in
+                Button {
+                    navigator.navigate(to: MeasurementsDestinations.types)
+                } label: {
+                    HStack(alignment: .center) {
+                        Image(systemName: category.image)
+                            .foregroundStyle(category.color)
+                        Text(category.title)
+                            .foregroundStyle(.primary)
+                            .bold()
+                    }
+                }
+            }
+        }
+        .listStyle(.inset)
     }
     
 }
