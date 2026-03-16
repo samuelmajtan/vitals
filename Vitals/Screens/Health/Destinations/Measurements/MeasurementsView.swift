@@ -11,8 +11,6 @@ struct MeasurementsView: View {
 
     // MARK: - Properties
 
-    @Environment(\.navigator)
-    private var navigator
     @State
     private var viewModel: MeasurementsViewModelProtocol
 
@@ -26,10 +24,8 @@ struct MeasurementsView: View {
     
     var body: some View {
         List {
-            ForEach(HealthCategory.allCases) { category in
-                Button {
-                    navigator.navigate(to: MeasurementsDestinations.types)
-                } label: {
+            ForEach(HealthMeasurementCategory.allCases) { category in
+                NavigationLink(to: MeasurementsDestinations.types) {
                     HStack(alignment: .center) {
                         Image(systemName: category.image)
                             .foregroundStyle(category.color)

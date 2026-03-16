@@ -15,7 +15,6 @@ struct InsightsScreen: View {
         ManagedNavigationStack(scene: RootTab.insights.id) {
             InsightsView(viewModel: InsightsViewModel())
                 .navigationCheckpoint(KnownCheckpoints.insights)
-                .navigationDestination(InsightsDestinations.self)
                 .navigationTitle("Insights")
                 .onNavigationReceive { (destination: InsightsDestinations, navigator) in
                     navigator.navigate(to: destination)

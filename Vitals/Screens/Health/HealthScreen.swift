@@ -15,7 +15,6 @@ struct HealthScreen: View {
         ManagedNavigationStack(scene: RootTab.health.id) {
             HealthView(viewModel: HealthViewModel())
                 .navigationCheckpoint(KnownCheckpoints.health)
-                .navigationDestination(HealthDestinations.self)
                 .navigationTitle("Health")
                 .onNavigationReceive { (destination: HealthDestinations, navigator) in
                     navigator.navigate(to: destination)

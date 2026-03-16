@@ -15,7 +15,6 @@ struct SearchScreen: View {
         ManagedNavigationStack(scene: RootTab.search.id) {
             SearchView(viewModel: SearchViewModel())
                 .navigationCheckpoint(KnownCheckpoints.search)
-                .navigationDestination(SearchDestinations.self)
                 .navigationTitle("Search")
                 .onNavigationReceive { (destination: SearchDestinations, navigator)  in
                     navigator.navigate(to: destination)

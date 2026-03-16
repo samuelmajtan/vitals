@@ -6,6 +6,6 @@
 
 import Foundation
 
-enum HealthType: Equatable, Hashable {
+enum HealthMeasurementType: Equatable, Hashable {
     
 }

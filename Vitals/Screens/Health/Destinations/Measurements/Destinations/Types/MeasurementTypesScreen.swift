@@ -13,7 +13,6 @@ struct MeasurementTypesScreen: View {
     
     var body: some View {
         MeasurementTypesView(viewModel: MeasurementTypesViewModel())
-            .navigationDestination(MeasurementTypesDestinations.self)
             .navigationTitle("Measurement Types")
             .onNavigationReceive { (destination: MeasurementTypesDestinations, navigator) in
                 navigator.navigate(to: destination)

@@ -11,8 +11,6 @@ struct HealthView: View {
     
     // MARK: - Properties
     
-    @Environment(\.navigator)
-    private var navigator
     @State
     private var viewModel: HealthViewModelProtocol
 
@@ -25,11 +23,15 @@ struct HealthView: View {
     // MARK: - View
     
     var body: some View {
-        VStack {
-            Button("Measurements") {
-                navigator.navigate(to: HealthDestinations.measurements)
+        List {
+            NavigationLink(to: HealthDestinations.measurements) {
+                Label("Measurements", systemImage: SF.medications.rawValue)
+            }
+            NavigationLink(to: HealthDestinations.medications) {
+                Label("Medications", systemImage: SF.measurements.rawValue)
             }
         }
+        .listStyle(.inset)
     }
     
 }

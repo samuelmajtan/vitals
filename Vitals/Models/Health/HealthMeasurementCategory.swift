@@ -7,7 +7,7 @@
 import Foundation
 import SwiftUI
 
-enum HealthCategory: CaseIterable, Equatable, Hashable {
+enum HealthMeasurementCategory: CaseIterable, Equatable, Hashable {
     
     case activity
     case bodyMeasurements
@@ -118,7 +118,7 @@ enum HealthCategory: CaseIterable, Equatable, Hashable {
     
 }
 
-extension HealthCategory: Identifiable {
+extension HealthMeasurementCategory: Identifiable {
     
     var id: Self {
         self

@@ -15,7 +15,6 @@ struct HomeScreen: View {
         ManagedNavigationStack(scene: RootTab.home.id) {
             HomeView(viewModel: HomeViewModel())
                 .navigationCheckpoint(KnownCheckpoints.home)
-                .navigationDestination(HomeDestinations.self)
                 .navigationTitle("Home")
                 .onNavigationReceive { (destination: HomeDestinations, navigator) in
                     navigator.navigate(to: destination)

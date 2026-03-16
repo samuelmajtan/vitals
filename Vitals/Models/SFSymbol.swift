@@ -13,4 +13,7 @@ enum SF: String {
     case insights = "waveform.path.ecg.rectangle"
     case search = "magnifyingglass"
 
+    case measurements = "heart.circle"
+    case medications = "pills.circle"
+
 }
