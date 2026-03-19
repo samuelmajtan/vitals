@@ -5,7 +5,4 @@
 //
 
 import Foundation
-
-enum HealthMeasurementType: Equatable, Hashable {
-    
-}
+import HealthKit

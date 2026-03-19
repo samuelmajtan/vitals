@@ -35,7 +35,7 @@ struct RootTabView: View {
         .onNavigationRoute(RootTabViewRouter())
         .tabViewStyle(.sidebarAdaptable)
     }
-    
+   
 }
 
 // MARK: - Preview
