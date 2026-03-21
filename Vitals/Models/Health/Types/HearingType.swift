@@ -27,7 +27,7 @@ enum HearingType: CaseIterable, MeasurementType {
         }
     }
 
-    var identifier: HealthTypeIdentifier {
+    var identifier: MeasurementTypeIdentifier {
         switch self {
         case .environmentalAudioExposure:
                 .quantity(.environmentalAudioExposure)

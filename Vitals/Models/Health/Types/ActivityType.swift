@@ -84,7 +84,7 @@ enum ActivityType: CaseIterable, MeasurementType {
         }
     }
 
-    var identifier: HealthTypeIdentifier {
+    var identifier: MeasurementTypeIdentifier {
         switch self {
         case .stepCount:
                 .quantity(.stepCount)

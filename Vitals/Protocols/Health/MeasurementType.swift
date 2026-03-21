@@ -9,7 +9,7 @@ import Foundation
 protocol MeasurementType: Equatable, Hashable, Identifiable {
     
     var title: String { get }
-    var identifier: HealthTypeIdentifier { get }
+    var identifier: MeasurementTypeIdentifier { get }
 
 }
 

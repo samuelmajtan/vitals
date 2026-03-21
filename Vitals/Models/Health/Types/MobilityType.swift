@@ -39,7 +39,7 @@ enum MobilityType: CaseIterable, MeasurementType {
         }
     }
 
-    var identifier: HealthTypeIdentifier {
+    var identifier: MeasurementTypeIdentifier {
         switch self {
         case .appleWalkingSteadiness:
                 .quantity(.appleWalkingSteadiness)

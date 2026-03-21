@@ -66,7 +66,7 @@ enum VitalsType: CaseIterable, MeasurementType {
         }
     }
 
-    var identifier: HealthTypeIdentifier {
+    var identifier: MeasurementTypeIdentifier {
         switch self {
         case .heartRate:
                 .quantity(.heartRate)

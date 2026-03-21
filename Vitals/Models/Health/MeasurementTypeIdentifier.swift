@@ -7,7 +7,7 @@
 import Foundation
 import HealthKit
 
-enum HealthTypeIdentifier {
+enum MeasurementTypeIdentifier {
 
     case quantity(HKQuantityTypeIdentifier)
     case category(HKCategoryTypeIdentifier)

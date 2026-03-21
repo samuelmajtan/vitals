@@ -24,7 +24,7 @@ enum SleepType: CaseIterable, MeasurementType {
         }
     }
 
-    var identifier: HealthTypeIdentifier {
+    var identifier: MeasurementTypeIdentifier {
         switch self {
         case .mindfulSession:
                 .category(.mindfulSession)

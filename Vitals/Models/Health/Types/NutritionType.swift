@@ -135,7 +135,7 @@ enum NutritionType: CaseIterable, MeasurementType {
         }
     }
     
-    var identifier: HealthTypeIdentifier {
+    var identifier: MeasurementTypeIdentifier {
         switch self {
         case .food:
                 .correlation(.food)

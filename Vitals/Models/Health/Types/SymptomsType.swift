@@ -132,7 +132,7 @@ enum SymptomType: CaseIterable, MeasurementType {
         }
     }
 
-    var identifier: HealthTypeIdentifier {
+    var identifier: MeasurementTypeIdentifier {
         switch self {
         case .abdominalCramps:
                 .category(.abdominalCramps)

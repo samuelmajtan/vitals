@@ -33,7 +33,7 @@ enum BodyMeasurementsType: CaseIterable, MeasurementType {
         }
     }
 
-    var identifier: HealthTypeIdentifier {
+    var identifier: MeasurementTypeIdentifier {
         switch self {
         case .height:
                 .quantity(.height)

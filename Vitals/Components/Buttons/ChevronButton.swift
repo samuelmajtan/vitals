@@ -34,7 +34,7 @@ struct ChevronButton: View {
     var body: some View {
         Button(action: action) {
             HStack(alignment: .center) {
-                HStack(alignment: .firstTextBaseline) {
+                HStack(alignment: .center) {
                     if let image {
                         Image(systemName: image)
                             .foregroundStyle(color ?? .accent)
