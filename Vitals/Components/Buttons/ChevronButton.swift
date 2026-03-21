@@ -13,7 +13,7 @@ struct ChevronButton: View {
     private let title: String
     private let image: String?
     private let color: Color?
-    private let action: () -> Void
+    private let action: VoidClosure
     
     // MARK: - Lifecycle
     
@@ -21,7 +21,7 @@ struct ChevronButton: View {
         _ title: String,
         image: String,
         color: Color? = nil,
-        action: @escaping () -> Void
+        action: @escaping VoidClosure
     ) {
         self.title = title
         self.image = image

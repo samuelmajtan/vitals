@@ -8,7 +8,7 @@ import Foundation
 
 enum Constant {
     
-    enum CornerRadius {
+    enum Radius {
         
         /// 4.0
         static let xs: CGFloat = 4.0

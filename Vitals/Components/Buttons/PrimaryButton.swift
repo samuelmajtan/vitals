@@ -57,7 +57,7 @@ struct PrimaryButtonStyle: ButtonStyle {
                 ? Color.Palette.red3
                 : Color.Palette.red5
             )
-            .cornerRadius(Constant.CornerRadius.sm)
+            .cornerRadius(Constant.Radius.sm)
     }
 
 }
