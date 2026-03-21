@@ -7,7 +7,15 @@
 import SwiftUI
 
 extension View {
-    
+
+    func installAuthorizationRoot() -> some View {
+        self.modifier(AuthorizationRootModifier())
+    }
+
+}
+
+extension View {
+
     /// Performs an action when the view appears for the first time.
     ///
     /// - Parameter action: A closure executed once when the view first appears.
@@ -15,7 +23,7 @@ extension View {
     func onFirstAppear(perform action: (VoidClosure)? = nil) -> some View {
         modifier(ViewFirstAppearModifier(perform: action))
     }
-    
+
     /// Performs an async action when the view appears for the first time.
     ///
     /// - Parameter action: An asynchronous closure executed once when the view first appears.
