@@ -19,3 +19,37 @@ extension Date {
     }
 
 }
+
+extension Date {
+
+    static var hourlyInterval: DateInterval {
+        let end = Calendar.current.startOfDay(for: Date())
+        let start = Calendar.current.date(byAdding: .hour, value: -1, to: end)!
+        return DateInterval(start: start, end: end)
+    }
+
+    static var dailyInterval: DateInterval {
+        let end = Calendar.current.startOfDay(for: Date())
+        let start = Calendar.current.date(byAdding: .day, value: -1, to: end)!
+        return DateInterval(start: start, end: end)
+    }
+
+    static var weeklyInterval: DateInterval {
+        let end = Calendar.current.startOfDay(for: Date())
+        let start = Calendar.current.date(byAdding: .day, value: -7, to: end)!
+        return DateInterval(start: start, end: end)
+    }
+
+    static var monthlyInterval: DateInterval {
+        let end = Calendar.current.startOfDay(for: Date())
+        let start = Calendar.current.date(byAdding: .month, value: -1, to: end)!
+        return DateInterval(start: start, end: end)
+    }
+
+    static var yearlyInterval: DateInterval {
+        let end = Calendar.current.startOfDay(for: Date())
+        let start = Calendar.current.date(byAdding: .year, value: -1, to: end)!
+        return DateInterval(start: start, end: end)
+    }
+
+}
