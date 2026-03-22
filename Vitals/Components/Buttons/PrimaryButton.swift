@@ -17,7 +17,7 @@ struct PrimaryButton: View {
     // MARK: - Lifecycle
 
     init(
-        title: String,
+        _ title: String,
         isLoading: Bool = false,
         action: @escaping VoidClosure
     ) {
@@ -74,7 +74,7 @@ extension ButtonStyle where Self == PrimaryButtonStyle {
 
 #Preview {
     Group {
-        PrimaryButton(title: "Title A", isLoading: false, action: {})
-        PrimaryButton(title: "Title B", isLoading: true, action: {})
+        PrimaryButton("Title A", isLoading: false, action: {})
+        PrimaryButton("Title B", isLoading: true, action: {})
     }
 }
