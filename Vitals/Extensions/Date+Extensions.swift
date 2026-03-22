@@ -51,5 +51,5 @@ extension Date {
         let start = Calendar.current.date(byAdding: .year, value: -1, to: end)!
         return DateInterval(start: start, end: end)
     }
-
+    
 }

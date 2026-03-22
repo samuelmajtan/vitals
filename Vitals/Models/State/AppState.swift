@@ -6,11 +6,11 @@
 
 import Foundation
 
-/// Represents the overall authentication state of the application.
+/// Represents the overall authorization state of the application.
 enum AppState: Codable, Equatable, Hashable, Sendable {
     
-    /// Indicates that the user is successfully authenticated.
-    case authenticated
+    /// Indicates that the user is successfully authorized.
+    case authorized
     /// The app is determining its current state (e.g., during startup).
     case unknown
     

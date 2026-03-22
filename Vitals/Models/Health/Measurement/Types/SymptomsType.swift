@@ -7,7 +7,7 @@
 import Foundation
 import HealthKit
 
-enum SymptomType: CaseIterable, MeasurementType {
+enum SymptomType: CaseIterable, MeasurementTypeProtocol {
 
     case abdominalCramps
     case bloating
@@ -132,7 +132,7 @@ enum SymptomType: CaseIterable, MeasurementType {
         }
     }
 
-    var identifier: MeasurementTypeIdentifier {
+    var type: MeasurementType {
         switch self {
         case .abdominalCramps:
                 .category(.abdominalCramps)

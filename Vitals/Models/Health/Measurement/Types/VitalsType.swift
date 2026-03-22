@@ -7,7 +7,7 @@
 import Foundation
 import HealthKit
 
-enum VitalsType: CaseIterable, MeasurementType {
+enum VitalsType: CaseIterable, MeasurementTypeProtocol {
 
     case heartRate
     case lowHeartRateEvent
@@ -66,7 +66,7 @@ enum VitalsType: CaseIterable, MeasurementType {
         }
     }
 
-    var identifier: MeasurementTypeIdentifier {
+    var type: MeasurementType {
         switch self {
         case .heartRate:
                 .quantity(.heartRate)

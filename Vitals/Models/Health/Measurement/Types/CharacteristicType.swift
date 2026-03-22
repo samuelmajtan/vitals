@@ -33,7 +33,7 @@ enum CharacteristicType: CaseIterable {
         }
     }
     
-    var identifier: HKCharacteristicTypeIdentifier {
+    var type: HKCharacteristicTypeIdentifier {
         switch self {
         case .activityMoveMode:
                 .activityMoveMode

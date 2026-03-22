@@ -74,8 +74,6 @@ extension RootTab: NavigationDestination {
 
 }
 
-// MARK: - Identifiable
-
 extension RootTab: Identifiable {
 
     var id: String {

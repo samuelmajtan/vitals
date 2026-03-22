@@ -6,10 +6,10 @@
 
 import Foundation
 
-protocol MeasurementType: Equatable, Hashable, Identifiable {
+protocol MeasurementTypeProtocol: Equatable, Hashable, Identifiable {
     
     var title: String { get }
-    var identifier: MeasurementTypeIdentifier { get }
+    var type: MeasurementType { get }
 
 }
 

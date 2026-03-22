@@ -4,10 +4,10 @@
 // SPDX-License-Identifier: GPL-3.0
 //
 
-
 import SwiftUI
 import NavigatorUI
 
+@available(iOS 18.0, macOS 15.0, tvOS 18.0, *)
 struct RootTabView: View {
     
     // MARK: - Properties
@@ -30,9 +30,10 @@ struct RootTabView: View {
                 return .immediately
             }
             selectedTab = tab
-            return .after(0.7)
+            return .after(0.8)
         }
         .onNavigationRoute(RootTabViewRouter())
+        .installAuthorizationRoot()
         .tabViewStyle(.sidebarAdaptable)
     }
    
@@ -40,6 +41,7 @@ struct RootTabView: View {
 
 // MARK: - Preview
 
+@available(iOS 18.0, macOS 15.0, tvOS 18.0, *)
 #Preview {
     RootTabView()
 }

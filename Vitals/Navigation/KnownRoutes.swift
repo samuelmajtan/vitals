@@ -8,6 +8,7 @@ import NavigatorUI
 
 enum KnownRoutes: NavigationRoutes {
     
+    case authorization
     case home
     case health
     case insights

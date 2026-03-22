@@ -25,20 +25,11 @@ struct MeasurementDetailView: View {
     // MARK: - View
 
     var body: some View {
-        List {
+        ScrollView {
             VStack(alignment: .leading) {
-                // TODO: Date Picker
-                // TODO: Statistics
-                // TODO: Chart
+                TimeRangePicker(timeRange: $viewModel.timeRange)
             }
-            .listRowSeparator(.hidden)
-        }
-        .toolbar {
-            Button {
-                navigator.navigate(to: MeasurementDetailDestinations.placeholder)
-            } label: {
-                Image(systemName: "plus")
-            }
+            .padding()
         }
     }
 

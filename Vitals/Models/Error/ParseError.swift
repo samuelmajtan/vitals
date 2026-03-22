@@ -4,4 +4,8 @@
 // SPDX-License-Identifier: GPL-3.0
 //
 
-nonisolated struct EmptyResponse: Response, Sendable { }
+import Foundation
+
+enum ParseError: Equatable, LocalizedError {
+    
+}

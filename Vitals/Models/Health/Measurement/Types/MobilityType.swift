@@ -7,7 +7,7 @@
 import Foundation
 import HealthKit
 
-enum MobilityType: CaseIterable, MeasurementType {
+enum MobilityType: CaseIterable, MeasurementTypeProtocol {
 
     case appleWalkingSteadiness
     case appleWalkingSteadinessEvent
@@ -39,7 +39,7 @@ enum MobilityType: CaseIterable, MeasurementType {
         }
     }
 
-    var identifier: MeasurementTypeIdentifier {
+    var type: MeasurementType {
         switch self {
         case .appleWalkingSteadiness:
                 .quantity(.appleWalkingSteadiness)

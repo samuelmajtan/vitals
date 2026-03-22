@@ -14,8 +14,10 @@ protocol MeasurementTypesViewModelProtocol: AnyObject, Observable {
     
     // MARK: - Properties
     
-    var state: FetchState<EmptyResponse> { get }
+    var state: FetchState<String> { get }
     var error: AppError? { get }
+    
+    var context: MeasurementsDestinations.Context { get set }
     
     // MARK: - Methods
     
@@ -28,14 +30,21 @@ protocol MeasurementTypesViewModelProtocol: AnyObject, Observable {
     
     // MARK: - Properties
     
-    private(set) var state: FetchState<EmptyResponse>
+    private(set) var state: FetchState<String>
     private(set) var error: AppError?
+    
+    var context: MeasurementsDestinations.Context
     
     // MARK: - Lifecycle
     
-    init(state: FetchState<EmptyResponse> = .idle, error: AppError? = nil) {
+    init(
+        state: FetchState<String> = .idle,
+        error: AppError? = nil,
+        _ context: MeasurementsDestinations.Context
+    ) {
         self.state = state
         self.error = error
+        self.context = context
     }
     
 }

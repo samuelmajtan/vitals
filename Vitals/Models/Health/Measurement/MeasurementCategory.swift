@@ -42,21 +42,21 @@ enum MeasurementCategory: CaseIterable, Equatable, Hashable {
     var image: String {
         switch self {
         case .activity:
-            "flame"
+            SF.activity.rawValue
         case .bodyMeasurements:
-            "figure"
+            SF.bodyMeasurements.rawValue
         case .hearing:
-            "ear"
+            SF.hearing.rawValue
         case .mobility:
-            "figure.walk"
+            SF.mobility.rawValue
         case .nutrition:
-            "carrot"
+            SF.nutrition.rawValue
         case .sleep:
-            "bed.double"
+            SF.sleep.rawValue
         case .symptoms:
-            "allergens"
+            SF.symptoms.rawValue
         case .vitals:
-            "waveform.path.ecg.rectangle"
+            SF.vitals.rawValue
         }
     }
     
@@ -65,9 +65,9 @@ enum MeasurementCategory: CaseIterable, Equatable, Hashable {
         case .activity:
                 .orange
         case .bodyMeasurements:
-                .teal
+                .brown
         case .hearing:
-                .pink
+                .yellow
         case .mobility:
                 .blue
         case .nutrition:
@@ -81,7 +81,7 @@ enum MeasurementCategory: CaseIterable, Equatable, Hashable {
         }
     }
     
-    var types: [any MeasurementType] {
+    var types: [any MeasurementTypeProtocol] {
         switch self {
         case .activity:
             ActivityType.allCases

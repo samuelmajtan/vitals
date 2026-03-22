@@ -6,7 +6,7 @@
 
 import SwiftUI
 
-enum TimeRange: String, CaseIterable, Identifiable {
+enum TimeRange: CaseIterable, Identifiable {
 
     case lastHour
     case lastDay

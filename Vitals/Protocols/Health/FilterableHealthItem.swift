@@ -5,5 +5,3 @@
 //
 
 import Foundation
-
-protocol Response: Decodable, Equatable, Hashable { }

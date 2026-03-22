@@ -11,8 +11,6 @@ struct MeasurementTypesView: View {
     
     // MARK: - Properties
     
-    @Environment(\.navigator)
-    private var navigator
     @State
     private var viewModel: MeasurementTypesViewModelProtocol
     
@@ -25,12 +23,17 @@ struct MeasurementTypesView: View {
     // MARK: - View
     
     var body: some View {
-        VStack {
-            Button("Go to detail...") {
-                navigator.navigate(to: MeasurementTypesDestinations.detail)
+        ZStack(alignment: .top) {
+            GradientView(color: viewModel.context.measurementCategory.color)
+
+            List {
             }
+            .scrollContentBackground(.hidden)
         }
     }
-
+    
 }
 
+#Preview {
+    MeasurementTypesView(viewModel: MeasurementTypesViewModel(MeasurementsDestinations.Context(.vitals)))
+}

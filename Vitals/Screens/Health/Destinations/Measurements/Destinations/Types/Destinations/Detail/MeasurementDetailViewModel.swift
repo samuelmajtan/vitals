@@ -14,11 +14,13 @@ protocol MeasurementDetailViewModelProtocol: AnyObject, Observable {
     
     // MARK: - Properties
     
-    var state: FetchState<EmptyResponse> { get }
+    var state: FetchState<String> { get }
     var error: AppError? { get }
     
-    // MARK: - Methods
+    var timeRange: TimeRange { get set }
     
+    // MARK: - Methods
+
 }
 
 // MARK: - Implementation
@@ -28,16 +30,16 @@ protocol MeasurementDetailViewModelProtocol: AnyObject, Observable {
 
     // MARK: - Properties
 
-    private(set) var state: FetchState<EmptyResponse>
+    private(set) var state: FetchState<String>
     private(set) var error: AppError?
-
-    // MARK: - Computed Properties
+    var timeRange: TimeRange
 
     // MARK: - Lifecycle
     
-    init(state: FetchState<EmptyResponse> = .idle, error: AppError? = nil) {
+    init(state: FetchState<String> = .idle, error: AppError? = nil, timeRange: TimeRange = .lastDay) {
         self.state = state
         self.error = error
+        self.timeRange = timeRange
     }
 
 }

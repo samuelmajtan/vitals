@@ -9,11 +9,21 @@ import NavigatorUI
 
 struct MeasurementTypesScreen: View {
     
+    // MARK: - Properties
+    
+    let context: MeasurementsDestinations.Context
+    
+    // MARK: - Lifecycle
+    
+    init(_ context: MeasurementsDestinations.Context) {
+        self.context = context
+    }
+    
     // MARK: - View
     
     var body: some View {
-        MeasurementTypesView(viewModel: MeasurementTypesViewModel())
-            .navigationTitle("Measurement Types")
+        MeasurementTypesView(viewModel: MeasurementTypesViewModel(context))
+            .navigationTitle(context.measurementCategory.title)
             .onNavigationReceive { (destination: MeasurementTypesDestinations, navigator) in
                 navigator.navigate(to: destination)
                 return .auto
@@ -25,5 +35,5 @@ struct MeasurementTypesScreen: View {
 // MARK: - Preview
 
 #Preview {
-    MeasurementTypesScreen()
+    MeasurementTypesScreen(.init(.vitals))
 }

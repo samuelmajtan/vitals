@@ -7,7 +7,7 @@
 import Foundation
 import HealthKit
 
-enum BodyMeasurementsType: CaseIterable, MeasurementType {
+enum BodyMeasurementsType: CaseIterable, MeasurementTypeProtocol {
 
     case height
     case bodyMass
@@ -33,7 +33,7 @@ enum BodyMeasurementsType: CaseIterable, MeasurementType {
         }
     }
 
-    var identifier: MeasurementTypeIdentifier {
+    var type: MeasurementType {
         switch self {
         case .height:
                 .quantity(.height)

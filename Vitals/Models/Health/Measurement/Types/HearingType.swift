@@ -7,7 +7,7 @@
 import Foundation
 import HealthKit
 
-enum HearingType: CaseIterable, MeasurementType {
+enum HearingType: CaseIterable, MeasurementTypeProtocol {
 
     case environmentalAudioExposure
     case headphoneAudioExposure
@@ -27,7 +27,7 @@ enum HearingType: CaseIterable, MeasurementType {
         }
     }
 
-    var identifier: MeasurementTypeIdentifier {
+    var type: MeasurementType {
         switch self {
         case .environmentalAudioExposure:
                 .quantity(.environmentalAudioExposure)

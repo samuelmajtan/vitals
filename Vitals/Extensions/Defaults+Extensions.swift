@@ -8,6 +8,8 @@ import Foundation
 import Defaults
 
 extension Defaults.Keys {
-    
+
+    static var isAuthorized = Key<Bool?>("isAuthorized", default: false)
+
 }
 

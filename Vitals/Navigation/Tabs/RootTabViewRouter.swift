@@ -12,6 +12,13 @@ struct RootTabViewRouter: NavigationRouteHandling {
     @MainActor
     func route(to route: KnownRoutes, with navigator: Navigator) {
         switch route {
+        case .authorization:
+            navigator.perform(
+                .reset,
+                .send(RootTab.home),
+                .authorizationRequired,
+                .send(HomeDestinations.placeholder)
+            )
         case .home:
             navigator.perform(
                 .reset,
@@ -34,5 +41,5 @@ struct RootTabViewRouter: NavigationRouteHandling {
             )
         }
     }
-
+    
 }

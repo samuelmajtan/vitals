@@ -12,14 +12,30 @@ import HealthKit
 
 protocol HealthServiceProtocol: AnyObject {
     
+    // MARK: - Properties
+    
+    var healthStore: HKHealthStore { get }
+
+    // MARK: - Methods
+
+    func isAvailable() -> Bool
+
 }
 
 // MARK: - Implementation
 
 final class HealthService: HealthServiceProtocol {
     
+    // MARK: - Properties
     
-    func foo() {
+    let healthStore: HKHealthStore = .init()
+    
+    // MARK: - Lifecycle
+    
+    // MARK: - Methods
+    
+    func isAvailable() -> Bool {
+        HKHealthStore.isHealthDataAvailable() ? true : false
     }
 
 }

@@ -14,7 +14,7 @@ protocol MedicationDetailViewModelProtocol: AnyObject, Observable {
 
     // MARK: - Properties
 
-    var state: FetchState<EmptyResponse> { get }
+    var state: FetchState<String> { get }
     var error: AppError? { get }
 
     // MARK: - Methods
@@ -30,12 +30,12 @@ protocol MedicationDetailViewModelProtocol: AnyObject, Observable {
 
     // MARK: - Properties
 
-    private(set) var state: FetchState<EmptyResponse>
+    private(set) var state: FetchState<String>
     private(set) var error: AppError?
 
     // MARK: - Lifecycle
 
-    init(state: FetchState<EmptyResponse> = .idle, error: AppError? = nil) {
+    init(state: FetchState<String> = .idle, error: AppError? = nil) {
         self.state = state
         self.error = error
     }
