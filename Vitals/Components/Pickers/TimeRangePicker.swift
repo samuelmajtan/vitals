@@ -6,16 +6,58 @@
 
 import SwiftUI
 
+enum TimeRange: String, CaseIterable, Identifiable {
+
+    case lastHour
+    case lastDay
+    case lastWeek
+    case lastMonth
+    case lastYear
+
+    var title: String {
+        switch self {
+        case .lastHour:
+            "H"
+        case .lastDay:
+            "D"
+        case .lastWeek:
+            "W"
+        case .lastMonth:
+            "M"
+        case .lastYear:
+            "Y"
+        }
+    }
+
+    var id: Self {
+        self
+    }
+
+}
+
 struct TimeRangePicker: View {
     
     // MARK: - Properties
 
+    @Binding
+    var timeRange: TimeRange
+
     // MARK: - Lifecycle
-    
+
+    init(timeRange: Binding<TimeRange>) {
+        self._timeRange = timeRange
+    }
+
     // MARK: - View
 
     var body: some View {
-        Text("Time Range Picker")
+        Picker(selection: $timeRange.animation(.easeInOut), label: EmptyView()) {
+            ForEach(TimeRange.allCases) {
+                Text($0.title)
+                    .tag($0)
+            }
+        }
+        .pickerStyle(.segmented)
     }
 
 }
@@ -23,5 +65,5 @@ struct TimeRangePicker: View {
 // MARK: - Preview
 
 #Preview {
-    TimeRangePicker()
+    TimeRangePicker(timeRange: .constant(.lastMonth))
 }
