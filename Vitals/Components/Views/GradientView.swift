@@ -23,7 +23,7 @@ struct GradientView: View {
     var body: some View {
         Color.black.ignoresSafeArea(.all)
         LinearGradient(
-            gradient: Gradient(colors: [color.opacity(0.4), Color.clear]),
+            gradient: Gradient(colors: [color.opacity(0.2), Color.clear]),
             startPoint: .top,
             endPoint: .bottom
         )

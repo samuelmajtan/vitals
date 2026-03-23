@@ -6,6 +6,7 @@
 
 import SwiftUI
 import NavigatorUI
+import HealthKit
 
 struct MeasurementTypesView: View {
     
@@ -27,7 +28,20 @@ struct MeasurementTypesView: View {
             GradientView(color: viewModel.context.measurementCategory.color)
 
             List {
+                Section("Samples") {
+                    ForEach(viewModel.context.measurementCategory.types) { type in
+                        NavigationLink(to: MeasurementTypesDestinations.detail(.init(type))) {
+                            Text(type.title)
+                        }
+                    }
+                }
+
+                Section("No Data Available") {
+                        
+                }
             }
+            .headerProminence(.increased)
+            .listRowSpacing(Constant.Spacing.md)
             .scrollContentBackground(.hidden)
         }
     }

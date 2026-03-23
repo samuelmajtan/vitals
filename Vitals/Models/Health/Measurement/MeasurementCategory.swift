@@ -6,6 +6,7 @@
 
 import Foundation
 import SwiftUI
+import HealthKit
 
 enum MeasurementCategory: CaseIterable, Equatable, Hashable {
     
@@ -81,24 +82,25 @@ enum MeasurementCategory: CaseIterable, Equatable, Hashable {
         }
     }
     
-    var types: [any MeasurementTypeProtocol] {
+    @MainActor
+    var types: [AnyMeasurementType] {
         switch self {
         case .activity:
-            ActivityType.allCases
+            ActivityType.allCases.map(AnyMeasurementType.init)
         case .bodyMeasurements:
-            BodyMeasurementsType.allCases
+            BodyMeasurementsType.allCases.map(AnyMeasurementType.init)
         case .hearing:
-            HearingType.allCases
+            HearingType.allCases.map(AnyMeasurementType.init)
         case .mobility:
-            MobilityType.allCases
+            MobilityType.allCases.map(AnyMeasurementType.init)
         case .nutrition:
-            NutritionType.allCases
+            NutritionType.allCases.map(AnyMeasurementType.init)
         case .sleep:
-            SleepType.allCases
+            SleepType.allCases.map(AnyMeasurementType.init)
         case .symptoms:
-            SymptomType.allCases
+            SymptomType.allCases.map(AnyMeasurementType.init)
         case .vitals:
-            VitalsType.allCases
+            VitalsType.allCases.map(AnyMeasurementType.init)
         }
     }
     

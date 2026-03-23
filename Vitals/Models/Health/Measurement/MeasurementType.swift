@@ -7,7 +7,14 @@
 import Foundation
 import HealthKit
 
-enum MeasurementType {
+protocol MeasurementTypeProtocol: Equatable, Hashable, Identifiable {
+    
+    var title: String { get }
+    var type: MeasurementType { get }
+    
+}
+
+enum MeasurementType: Equatable, Hashable {
 
     case quantity(HKQuantityTypeIdentifier)
     case category(HKCategoryTypeIdentifier)
@@ -22,11 +29,11 @@ enum MeasurementType {
         case .category(let id):
             HKCategoryType(id)
         case .correlation(let id):
-            HKObjectType.correlationType(forIdentifier: id)
+            HKCorrelationType(id)
         case .heartbeatSeries:
             HKSeriesType.heartbeat()
         case .electrocardiogram:
-            HKObjectType.electrocardiogramType()
+            HKSampleType.electrocardiogramType()
         }
     }
 

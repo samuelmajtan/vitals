@@ -8,12 +8,22 @@ import SwiftUI
 import NavigatorUI
 
 struct MeasurementDetailScreen: View {
+    
+    // MARK: - Properties
+    
+    let context: MeasurementTypesDestinations.Context
+    
+    // MARK: - Lifecycle
+    
+    init(_ context: MeasurementTypesDestinations.Context) {
+        self.context = context
+    }
 
     // MARK: - View
 
     var body: some View {
-        MeasurementDetailView(viewModel: MeasurementDetailViewModel())
-            .navigationTitle("Detail")
+        MeasurementDetailView(viewModel: MeasurementDetailViewModel(context: context))
+            .navigationTitle(context.measurementType.title)
             .navigationBarTitleDisplayMode(.inline)
             .onNavigationReceive { (destination: MeasurementDetailDestinations, navigator) in
                 navigator.navigate(to: destination)
@@ -26,5 +36,4 @@ struct MeasurementDetailScreen: View {
 // MARK: - Preview
 
 #Preview {
-    MeasurementDetailScreen()
 }

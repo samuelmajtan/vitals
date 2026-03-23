@@ -12,7 +12,7 @@ import NavigatorUI
 @MainActor
 enum MeasurementTypesDestinations: Hashable, @MainActor NavigationDestination {
     
-    case detail
+    case detail(Self.Context)
     
 }
 
@@ -22,8 +22,8 @@ extension MeasurementTypesDestinations {
     
     var body: some View {
         switch self {
-        case .detail:
-            MeasurementDetailScreen()
+        case .detail(let context):
+            MeasurementDetailScreen(context)
         }
     }
     
@@ -37,6 +37,22 @@ extension MeasurementTypesDestinations {
         switch self {
         default: .push
         }
+    }
+    
+}
+
+// MARK: - Context
+
+extension MeasurementTypesDestinations {
+    
+    struct Context: Equatable, Hashable {
+
+        let measurementType: AnyMeasurementType
+
+        init(_ measurementType: AnyMeasurementType) {
+            self.measurementType = measurementType
+        }
+
     }
     
 }
