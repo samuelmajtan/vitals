@@ -4,6 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0
 //
 
+import Foundation
 import SwiftUI
 import Charts
 
