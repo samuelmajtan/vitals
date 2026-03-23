@@ -25,10 +25,10 @@ struct HealthView: View {
     var body: some View {
         List {
             NavigationLink(to: HealthDestinations.measurements) {
-                Label("Measurements", systemImage: SF.medications.rawValue)
+                Label("Measurements", systemImage: SF.measurements.rawValue)
             }
             NavigationLink(to: HealthDestinations.medications) {
-                Label("Medications", systemImage: SF.measurements.rawValue)
+                Label("Medications", systemImage: SF.medications.rawValue)
             }
         }
         .listStyle(.inset)
