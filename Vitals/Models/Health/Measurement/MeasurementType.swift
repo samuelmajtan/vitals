@@ -22,7 +22,7 @@ enum MeasurementType: Equatable, Hashable {
     case heartbeatSeries
     case electrocardiogram
     
-    var sampleType: HKSampleType? {
+    var sampleType: HKSampleType {
         switch self {
         case .quantity(let id):
             HKQuantityType(id)
