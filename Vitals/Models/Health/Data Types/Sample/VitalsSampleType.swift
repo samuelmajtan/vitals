@@ -22,7 +22,6 @@ enum VitalsSampleType: CaseIterable, SampleTypeProtocol {
     case electrocardiogram
     case oxygenSaturation
     case bodyTemperature
-    case bloodPressure
     case bloodPressureSystolic
     case bloodPressureDiastolic
     case respiratoryRate
@@ -55,9 +54,7 @@ enum VitalsSampleType: CaseIterable, SampleTypeProtocol {
             "Oxygen Saturation"
         case .bodyTemperature:              
             "Body Temperature"
-        case .bloodPressure:                
-            "Blood Pressure"
-        case .bloodPressureSystolic:        
+        case .bloodPressureSystolic:
             "Blood Pressure Systolic"
         case .bloodPressureDiastolic:       
             "Blood Pressure Diastolic"
@@ -94,8 +91,6 @@ enum VitalsSampleType: CaseIterable, SampleTypeProtocol {
                 .quantity(.oxygenSaturation)
         case .bodyTemperature:
                 .quantity(.bodyTemperature)
-        case .bloodPressure:
-                .correlation(.bloodPressure)
         case .bloodPressureSystolic:
                 .quantity(.bloodPressureSystolic)
         case .bloodPressureDiastolic:

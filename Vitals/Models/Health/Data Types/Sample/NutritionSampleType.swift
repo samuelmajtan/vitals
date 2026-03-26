@@ -9,7 +9,6 @@ import HealthKit
 
 enum NutritionSampleType: CaseIterable, SampleTypeProtocol {
     
-    case food
     case dietaryEnergyConsumed
     case dietaryCarbohydrates
     case dietaryFiber
@@ -52,8 +51,6 @@ enum NutritionSampleType: CaseIterable, SampleTypeProtocol {
     
     var title: String {
         switch self {
-        case .food:                         
-            "Food"
         case .dietaryEnergyConsumed:        
             "Energy Consumed"
         case .dietaryCarbohydrates:         
@@ -137,8 +134,6 @@ enum NutritionSampleType: CaseIterable, SampleTypeProtocol {
     
     var type: SampleType {
         switch self {
-        case .food:
-                .correlation(.food)
         case .dietaryEnergyConsumed:
                 .quantity(.dietaryEnergyConsumed)
         case .dietaryCarbohydrates:
