@@ -26,18 +26,26 @@ struct MeasurementTypesView: View {
     var body: some View {
         ZStack(alignment: .top) {
             GradientView(color: viewModel.context.measurementCategory.color)
-
+            
             List {
-                Section("Samples") {
-                    ForEach(viewModel.context.measurementCategory.types) { type in
-                        NavigationLink(to: MeasurementTypesDestinations.detail(.init(type))) {
-                            Text(type.title)
-                        }
+                if viewModel.dailySamples.isNotEmpty {
+                    Section("Today") {
                     }
                 }
-
-                Section("No Data Available") {
-                        
+                
+                if viewModel.weeklySamples.isNotEmpty {
+                    Section("Past 7 days") {
+                    }
+                }
+                
+                if viewModel.monthlySamples.isNotEmpty {
+                    Section("Past Month") {
+                    }
+                }
+                
+                if viewModel.emptySamples.isNotEmpty {
+                    Section("No Data Available") {
+                    }
                 }
             }
             .headerProminence(.increased)

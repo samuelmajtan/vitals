@@ -6,17 +6,17 @@
 
 import Foundation
 
-struct AnyMeasurementType: MeasurementTypeProtocol {
+struct AnySampleType: SampleTypeProtocol {
 
     private let _title: () -> String
-    private let _type: () -> MeasurementType
+    private let _type: () -> SampleType
     private let _id: AnyHashable
     
     var title: String { _title() }
-    var type: MeasurementType { _type() }
+    var type: SampleType { _type() }
     var id: AnyHashable { _id }
     
-    init<T: MeasurementTypeProtocol>(_ base: T) {
+    init<T: SampleTypeProtocol>(_ base: T) {
         _title = { base.title }
         _type = { base.type }
         _id = AnyHashable(base.id)
@@ -24,9 +24,9 @@ struct AnyMeasurementType: MeasurementTypeProtocol {
 
 }
 
-extension AnyMeasurementType: Equatable, Hashable {
+extension AnySampleType: Equatable, Hashable {
 
-    static func == (lhs: AnyMeasurementType, rhs: AnyMeasurementType) -> Bool {
+    static func == (lhs: AnySampleType, rhs: AnySampleType) -> Bool {
         lhs.id == rhs.id
     }
 

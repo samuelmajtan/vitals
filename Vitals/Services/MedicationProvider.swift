@@ -24,8 +24,14 @@ final actor MedicationProvider: MedicationProviderProtocol {
     
     // MARK: - Properties
     
+    private let healthStore: HKHealthStore
+
     // MARK: - Lifecycle
-    
+
+    init(_ healthStore: HKHealthStore) {
+        self.healthStore = healthStore
+    }
+
     // MARK: - Methods
     
 }
@@ -35,7 +41,7 @@ final actor MedicationProvider: MedicationProviderProtocol {
 extension Container {
     
     var medicationProvider: Factory<MedicationProviderProtocol> {
-        self { @MainActor in MedicationProvider() }
+        self { @MainActor in MedicationProvider(self.healthService().healthStore) }
             .singleton
     }
     

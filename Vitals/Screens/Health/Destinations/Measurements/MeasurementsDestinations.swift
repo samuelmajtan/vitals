@@ -46,9 +46,9 @@ extension MeasurementsDestinations {
     
     struct Context: Hashable {
 
-        let measurementCategory: MeasurementCategory
+        let measurementCategory: SampleCategory
         
-        init(_ measurementCategory: MeasurementCategory) {
+        init(_ measurementCategory: SampleCategory) {
             self.measurementCategory = measurementCategory
         }
 

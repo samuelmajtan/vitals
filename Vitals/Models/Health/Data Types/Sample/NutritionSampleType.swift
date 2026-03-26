@@ -7,7 +7,7 @@
 import Foundation
 import HealthKit
 
-enum NutritionType: CaseIterable, MeasurementTypeProtocol {
+enum NutritionSampleType: CaseIterable, SampleTypeProtocol {
     
     case food
     case dietaryEnergyConsumed
@@ -135,7 +135,7 @@ enum NutritionType: CaseIterable, MeasurementTypeProtocol {
         }
     }
     
-    var type: MeasurementType {
+    var type: SampleType {
         switch self {
         case .food:
                 .correlation(.food)
@@ -222,7 +222,7 @@ enum NutritionType: CaseIterable, MeasurementTypeProtocol {
     
 }
 
-extension NutritionType: Identifiable {
+extension NutritionSampleType: Identifiable {
     
     var id: Self {
         self

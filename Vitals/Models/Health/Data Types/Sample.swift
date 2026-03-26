@@ -6,13 +6,13 @@
 
 import Foundation
 
-struct MeasurementSample {
-    
+struct Sample {
+
     let title: String
     let date: Date
     let value: Double
     let unit: String
-    
+
     init(_ title: String, date: Date, value: Double, unit: String) {
         self.title = title
         self.date = date

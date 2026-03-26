@@ -24,7 +24,7 @@ struct MeasurementsView: View {
     
     var body: some View {
         List {
-            ForEach(MeasurementCategory.allCases) { category in
+            ForEach(SampleCategory.allCases) { category in
                 NavigationLink(to: MeasurementsDestinations.types(.init(category))) {
                     HStack(alignment: .center) {
                         Image(systemName: category.image)

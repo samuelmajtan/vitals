@@ -16,18 +16,36 @@ protocol MeasurementProviderProtocol: AnyObject {
     
     // MARK: - Methods
     
+    func fetchSamples(for type: HKSampleType, with limit: Int) async throws
+
 }
 
 // MARK: - Implementation
 
 final actor MeasurementProvider: MeasurementProviderProtocol {
-    
+
     // MARK: - Properties
+
+    private let healthStore: HKHealthStore
     
     // MARK: - Lifecycle
-    
+
+    init(_ healthStore: HKHealthStore) {
+        self.healthStore = healthStore
+    }
+
     // MARK: - Methods
-    
+
+    func fetchSamples(for type: HKSampleType, with limit: Int = 10) async throws {
+        let descriptor = HKSampleQueryDescriptor(
+            predicates: [.sample(type: type)],
+            sortDescriptors: [SortDescriptor(\.endDate, order: .reverse)],
+            limit: limit
+        )
+        
+        let results = try await descriptor.result(for: healthStore)
+    }
+
 }
 
 // MARK: - Factory
@@ -35,7 +53,7 @@ final actor MeasurementProvider: MeasurementProviderProtocol {
 extension Container {
 
     var measurementProvider: Factory<MeasurementProviderProtocol> {
-        self { @MainActor in MeasurementProvider() }
+        self { @MainActor in MeasurementProvider(self.healthService().healthStore) }
             .singleton
     }
 

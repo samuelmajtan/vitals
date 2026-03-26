@@ -7,14 +7,7 @@
 import Foundation
 import HealthKit
 
-protocol MeasurementTypeProtocol: Equatable, Hashable, Identifiable {
-    
-    var title: String { get }
-    var type: MeasurementType { get }
-    
-}
-
-enum MeasurementType: Equatable, Hashable {
+enum SampleType: Equatable, Hashable {
 
     case quantity(HKQuantityTypeIdentifier)
     case category(HKCategoryTypeIdentifier)

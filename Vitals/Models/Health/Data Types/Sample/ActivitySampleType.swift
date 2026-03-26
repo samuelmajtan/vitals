@@ -7,7 +7,7 @@
 import Foundation
 import HealthKit
 
-enum ActivityType: CaseIterable, MeasurementTypeProtocol {
+enum ActivitySampleType: CaseIterable, SampleTypeProtocol {
 
     case stepCount
     case distanceWalkingRunning
@@ -84,7 +84,7 @@ enum ActivityType: CaseIterable, MeasurementTypeProtocol {
         }
     }
 
-    var type: MeasurementType {
+    var type: SampleType {
         switch self {
         case .stepCount:
                 .quantity(.stepCount)
@@ -137,7 +137,7 @@ enum ActivityType: CaseIterable, MeasurementTypeProtocol {
 
 }
 
-extension ActivityType: Identifiable {
+extension ActivitySampleType: Identifiable {
     
     var id: Self {
         self

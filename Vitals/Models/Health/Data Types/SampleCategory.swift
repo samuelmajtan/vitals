@@ -8,7 +8,7 @@ import Foundation
 import SwiftUI
 import HealthKit
 
-enum MeasurementCategory: CaseIterable, Equatable, Hashable {
+enum SampleCategory: CaseIterable, Equatable, Hashable {
     
     case activity
     case bodyMeasurements
@@ -83,30 +83,30 @@ enum MeasurementCategory: CaseIterable, Equatable, Hashable {
     }
     
     @MainActor
-    var types: [AnyMeasurementType] {
+    var types: [AnySampleType] {
         switch self {
         case .activity:
-            ActivityType.allCases.map(AnyMeasurementType.init)
+            ActivitySampleType.allCases.map(AnySampleType.init)
         case .bodyMeasurements:
-            BodyMeasurementsType.allCases.map(AnyMeasurementType.init)
+            BodyMeasurementsSampleType.allCases.map(AnySampleType.init)
         case .hearing:
-            HearingType.allCases.map(AnyMeasurementType.init)
+            HearingSampleType.allCases.map(AnySampleType.init)
         case .mobility:
-            MobilityType.allCases.map(AnyMeasurementType.init)
+            MobilitySampleType.allCases.map(AnySampleType.init)
         case .nutrition:
-            NutritionType.allCases.map(AnyMeasurementType.init)
+            NutritionSampleType.allCases.map(AnySampleType.init)
         case .sleep:
-            SleepType.allCases.map(AnyMeasurementType.init)
+            SleepSampleType.allCases.map(AnySampleType.init)
         case .symptoms:
-            SymptomType.allCases.map(AnyMeasurementType.init)
+            SymptomSampleType.allCases.map(AnySampleType.init)
         case .vitals:
-            VitalsType.allCases.map(AnyMeasurementType.init)
+            VitalsSampleType.allCases.map(AnySampleType.init)
         }
     }
     
 }
 
-extension MeasurementCategory: Identifiable {
+extension SampleCategory: Identifiable {
     
     var id: Self {
         self

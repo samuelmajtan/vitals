@@ -16,11 +16,10 @@ protocol MeasurementDetailViewModelProtocol: AnyObject, Observable {
     
     var state: FetchState<String> { get }
     var error: AppError? { get }
-    
-    
-    var context: MeasurementTypesDestinations.Context { get set }
+    var context: MeasurementTypesDestinations.Context { get }
+
     var timeRange: TimeRange { get set }
-    
+
     // MARK: - Methods
 
 }
@@ -34,8 +33,8 @@ protocol MeasurementDetailViewModelProtocol: AnyObject, Observable {
 
     private(set) var state: FetchState<String>
     private(set) var error: AppError?
-    
-    var context: MeasurementTypesDestinations.Context
+    private(set) var context: MeasurementTypesDestinations.Context
+
     var timeRange: TimeRange
 
     // MARK: - Lifecycle
@@ -43,7 +42,7 @@ protocol MeasurementDetailViewModelProtocol: AnyObject, Observable {
     init(
         state: FetchState<String> = .idle,
         error: AppError? = nil,
-        context: MeasurementTypesDestinations.Context,
+        _ context: MeasurementTypesDestinations.Context,
         timeRange: TimeRange = .lastDay
     ) {
         self.state = state

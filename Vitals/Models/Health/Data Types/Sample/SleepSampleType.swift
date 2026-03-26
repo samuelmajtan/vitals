@@ -7,7 +7,7 @@
 import Foundation
 import HealthKit
 
-enum SleepType: CaseIterable, MeasurementTypeProtocol {
+enum SleepSampleType: CaseIterable, SampleTypeProtocol {
 
     case mindfulSession
     case sleepAnalysis
@@ -24,7 +24,7 @@ enum SleepType: CaseIterable, MeasurementTypeProtocol {
         }
     }
 
-    var type: MeasurementType {
+    var type: SampleType {
         switch self {
         case .mindfulSession:
                 .category(.mindfulSession)
@@ -37,7 +37,7 @@ enum SleepType: CaseIterable, MeasurementTypeProtocol {
 
 }
     
-extension SleepType: Identifiable {
+extension SleepSampleType: Identifiable {
 
     var id: Self {
         self

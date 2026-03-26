@@ -7,7 +7,7 @@
 import Foundation
 import HealthKit
 
-enum CharacteristicType: CaseIterable {
+enum CharacteristicSampleType: CaseIterable {
     
     case activityMoveMode
     case biologicalSex
@@ -52,7 +52,7 @@ enum CharacteristicType: CaseIterable {
     
 }
 
-extension CharacteristicType: Identifiable {
+extension CharacteristicSampleType: Identifiable {
 
     var id: Self {
         self

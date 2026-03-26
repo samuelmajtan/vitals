@@ -10,12 +10,12 @@ struct SampleRowView: View {
     
     // MARK: - Properties
     
-    let sample: MeasurementSample
-    let category: MeasurementCategory
+    let sample: Sample
+    let category: SampleCategory
 
     // MARK: - Lifecycle
 
-    init(_ sample: MeasurementSample, category: MeasurementCategory) {
+    init(_ sample: Sample, category: SampleCategory) {
         self.sample = sample
         self.category = category
     }

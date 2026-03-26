@@ -5,6 +5,7 @@
 //
 
 import SwiftUI
+import NavigatorUI
 
 struct HomeView: View {
 
