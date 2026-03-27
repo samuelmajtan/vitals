@@ -10,8 +10,6 @@ import Charts
 
 struct ChartSymbolSquare: ChartSymbolShape, InsettableShape {
 
-    // MARK: - Properties
-
     let inset: CGFloat
 
     var perceptualUnitRect: CGRect {
@@ -23,8 +21,6 @@ struct ChartSymbolSquare: ChartSymbolShape, InsettableShape {
             height: scaleAdjustment
         )
     }
-
-    // MARK: - Lifecycle
 
     init(inset: CGFloat = 0) {
         self.inset = inset

@@ -13,9 +13,14 @@ struct ChartSymbolCircle: ChartSymbolShape , InsettableShape {
     let inset: CGFloat
 
     var perceptualUnitRect: CGRect {
-        CGRect(x: 0.2, y: 0.2, width: 0.6, height: 0.6)
+        CGRect(
+            x: 0.2,
+            y: 0.2,
+            width: 0.6,
+            height: 0.6
+        )
     }
-
+ 
     init(inset: CGFloat = 0) {
         self.inset = inset
     }
