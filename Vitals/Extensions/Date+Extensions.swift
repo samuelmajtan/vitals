@@ -22,6 +22,18 @@ extension Date {
 
 extension Date {
 
+    var timeFormatted: String {
+        self.formatted(
+            .dateTime
+                .hour(.twoDigits(amPM: .omitted))
+                .minute(.twoDigits)
+        )
+    }
+
+}
+
+extension Date {
+
     static var hourlyInterval: DateInterval {
         let end = Calendar.current.startOfDay(for: Date())
         let start = Calendar.current.date(byAdding: .hour, value: -1, to: end)!
