@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A5B18E252F76D75600D210F8 /* AnalysisKit in Frameworks */ = {isa = PBXBuildFile; productRef = A5B18E242F76D75600D210F8 /* AnalysisKit */; };
 		A5EB6C702F5CE3CA004D9A16 /* NavigatorUI in Frameworks */ = {isa = PBXBuildFile; productRef = A5EB6C6F2F5CE3CA004D9A16 /* NavigatorUI */; };
 		A5EB6C732F5CE3D5004D9A16 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = A5EB6C722F5CE3D5004D9A16 /* Defaults */; };
 		A5EB6C762F5CE3E1004D9A16 /* FactoryKit in Frameworks */ = {isa = PBXBuildFile; productRef = A5EB6C752F5CE3E1004D9A16 /* FactoryKit */; };
@@ -56,6 +57,13 @@
 			);
 			target = A5ECFB532F57872500DA7137 /* Vitals */;
 		};
+		A581EFC62F75F99C00195C6F /* Exceptions for "Packages" folder in "Vitals" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				AnalysisKit,
+			);
+			target = A5ECFB532F57872500DA7137 /* Vitals */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -77,6 +85,9 @@
 		};
 		A539A5312F5B47D8002DE204 /* Packages */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A581EFC62F75F99C00195C6F /* Exceptions for "Packages" folder in "Vitals" target */,
+			);
 			path = Packages;
 			sourceTree = "<group>";
 		};
@@ -110,6 +121,7 @@
 				A5EB6C762F5CE3E1004D9A16 /* FactoryKit in Frameworks */,
 				A5EB6C732F5CE3D5004D9A16 /* Defaults in Frameworks */,
 				A5EB6C702F5CE3CA004D9A16 /* NavigatorUI in Frameworks */,
+				A5B18E252F76D75600D210F8 /* AnalysisKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +143,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A5B18E232F76D75600D210F8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A5ECFB4B2F57872500DA7137 = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +160,7 @@
 				A5ECFB562F57872500DA7137 /* Vitals */,
 				A5ECFB642F57872600DA7137 /* VitalsTests */,
 				A5ECFB6E2F57872600DA7137 /* VitalsUITests */,
+				A5B18E232F76D75600D210F8 /* Frameworks */,
 				A5ECFB552F57872500DA7137 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -182,6 +202,7 @@
 				A5EB6C6F2F5CE3CA004D9A16 /* NavigatorUI */,
 				A5EB6C722F5CE3D5004D9A16 /* Defaults */,
 				A5EB6C752F5CE3E1004D9A16 /* FactoryKit */,
+				A5B18E242F76D75600D210F8 /* AnalysisKit */,
 			);
 			productName = Vitals;
 			productReference = A5ECFB542F57872500DA7137 /* Vitals.app */;
@@ -705,6 +726,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A5B18E242F76D75600D210F8 /* AnalysisKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AnalysisKit;
+		};
 		A5EB6C6F2F5CE3CA004D9A16 /* NavigatorUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A5EB6C6E2F5CE3CA004D9A16 /* XCRemoteSwiftPackageReference "Navigator" */;

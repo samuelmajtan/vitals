@@ -214,6 +214,17 @@ enum SymptomSampleType: CaseIterable, SampleTypeProtocol {
                 .category(.bladderIncontinence)
         }
     }
+    
+    var category: SampleCategory {
+        .symptoms
+    }
+    
+    var config: SampleConfiguration {
+        switch self {
+        default:
+            return .init(.mostRecent, chart: .bar, dateInterval: Date.monthlyInterval)
+        }
+    }
 
 }
 

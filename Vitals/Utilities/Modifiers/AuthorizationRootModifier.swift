@@ -28,7 +28,7 @@ struct AuthorizationRootModifier: ViewModifier {
             }
             .healthDataAccessRequest(
                 store: healthService.healthStore,
-                readTypes: [.activitySummaryType()],
+                readTypes: healthService.readTypes,
                 trigger: trigger
             ) { @Sendable result in
                 switch result {

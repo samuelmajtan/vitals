@@ -23,7 +23,7 @@ struct MeasurementTypesScreen: View {
     
     var body: some View {
         MeasurementTypesView(viewModel: MeasurementTypesViewModel(context))
-            .navigationTitle(context.measurementCategory.title)
+            .navigationTitle(context.category.title)
             .onNavigationReceive { (destination: MeasurementTypesDestinations, navigator) in
                 navigator.navigate(to: destination)
                 return .auto

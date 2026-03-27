@@ -23,7 +23,7 @@ struct MeasurementDetailScreen: View {
 
     var body: some View {
         MeasurementDetailView(viewModel: MeasurementDetailViewModel(context))
-            .navigationTitle(context.measurementType.title)
+            .navigationTitle(context.type.title)
             .navigationBarTitleDisplayMode(.inline)
             .onNavigationReceive { (destination: MeasurementDetailDestinations, navigator) in
                 navigator.navigate(to: destination)

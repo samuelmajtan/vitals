@@ -26,6 +26,8 @@ protocol MeasurementTypesViewModelProtocol: AnyObject, Observable {
 
     // MARK: - Methods
 
+    func fetchSamples() async
+
 }
 
 // MARK: - Implementation
@@ -70,6 +72,13 @@ protocol MeasurementTypesViewModelProtocol: AnyObject, Observable {
 extension MeasurementTypesViewModel {
     
     func fetchSamples() async {
+        let sampleTypes = context.category.types
+        
+        for sampleType in sampleTypes {
+            if let sample = try? await healthService.fetchSampleStatistics(for: sampleType) {
+                dailySamples.append(sample)
+            }
+        }
     }
     
 }
@@ -77,5 +86,5 @@ extension MeasurementTypesViewModel {
 // MARK: - Handle State
 
 private extension MeasurementTypesViewModel {
-    
+
 }

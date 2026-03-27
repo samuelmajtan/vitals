@@ -19,7 +19,6 @@ enum ActivitySampleType: CaseIterable, SampleTypeProtocol {
     case distanceCycling
     case pushCount
     case distanceWheelchair
-    case swimmingStrokeCount
     case distanceSwimming
     case distanceDownhillSnowSports
     case basalEnergyBurned
@@ -55,8 +54,6 @@ enum ActivitySampleType: CaseIterable, SampleTypeProtocol {
             "Push Count"
         case .distanceWheelchair:
             "Distance Wheelchair"
-        case .swimmingStrokeCount:
-            "Swimming Stroke Count"
         case .distanceSwimming:
             "Distance Swimming"
         case .distanceDownhillSnowSports:
@@ -106,8 +103,6 @@ enum ActivitySampleType: CaseIterable, SampleTypeProtocol {
                 .quantity(.pushCount)
         case .distanceWheelchair:
                 .quantity(.distanceWheelchair)
-        case .swimmingStrokeCount:
-                .quantity(.swimmingStrokeCount)
         case .distanceSwimming:
                 .quantity(.distanceSwimming)
         case .distanceDownhillSnowSports:
@@ -132,6 +127,34 @@ enum ActivitySampleType: CaseIterable, SampleTypeProtocol {
                 .quantity(.vo2Max)
         case .lowCardioFitnessEvent:
                 .category(.lowCardioFitnessEvent)
+        }
+    }
+    
+    var category: SampleCategory {
+        .activity
+    }
+    
+    var config: SampleConfiguration {
+        switch self {
+        case .stepCount, .flightsClimbed, .pushCount:
+            return .init(.cumulativeSum, chart: .bar, dateInterval: Date.dailyInterval)
+        case .distanceWalkingRunning, .distanceCycling, .distanceSwimming, .distanceWheelchair, .distanceDownhillSnowSports:
+            return .init(.cumulativeSum, chart: .line, dateInterval: Date.dailyInterval)
+        case .activeEnergyBurned, .basalEnergyBurned:
+            return .init(.cumulativeSum, chart: .line, dateInterval: Date.dailyInterval)
+        case .appleExerciseTime, .appleMoveTime, .appleStandTime:
+            return .init(.cumulativeSum, chart: .bar, dateInterval: Date.dailyInterval)
+        case .runningSpeed, .runningPower, .runningStrideLength,
+                .runningGroundContactTime, .runningVerticalOscillation:
+            return .init(.discreteAverage, chart: .line, dateInterval: Date.weeklyInterval)
+        case .vo2Max:
+            return .init(.discreteAverage, chart: .line, dateInterval: Date.monthlyInterval)
+        case .lowCardioFitnessEvent:
+            return .init(.mostRecent, chart: .bar, dateInterval: Date.monthlyInterval)
+        case .appleStandHour:
+            return .init(.cumulativeSum, chart: .bar, dateInterval: Date.dailyInterval)
+        case .nikeFuel:
+            return .init(.cumulativeSum, chart: .line, dateInterval: Date.dailyInterval)
         }
     }
 

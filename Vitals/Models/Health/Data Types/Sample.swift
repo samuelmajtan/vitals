@@ -8,16 +8,24 @@ import Foundation
 
 struct Sample {
 
-    let title: String
+    let type: AnySampleType
     let date: Date
     let value: Double
     let unit: String
 
-    init(_ title: String, date: Date, value: Double, unit: String) {
-        self.title = title
+    init(_ type: AnySampleType, date: Date, value: Double, unit: String) {
+        self.type = type
         self.date = date
         self.value = value
         self.unit = unit
+    }
+
+}
+
+extension Sample: Identifiable {
+
+    var id: AnySampleType {
+        self.type
     }
 
 }

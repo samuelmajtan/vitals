@@ -39,6 +39,20 @@ enum HearingSampleType: CaseIterable, SampleTypeProtocol {
                 .category(.headphoneAudioExposureEvent)
         }
     }
+    
+    var category: SampleCategory {
+        .hearing
+    }
+    
+    var config: SampleConfiguration {
+        switch self {
+            
+        case .environmentalAudioExposure, .headphoneAudioExposure:
+            return .init(.discreteAverage, chart: .bar, dateInterval: Date.dailyInterval)
+        case .environmentalAudioExposureEvent, .headphoneAudioExposureEvent:
+            return .init(.mostRecent, chart: .bar, dateInterval: Date.weeklyInterval)
+        }
+    }
 
 }
 

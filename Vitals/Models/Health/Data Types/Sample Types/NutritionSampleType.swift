@@ -215,6 +215,17 @@ enum NutritionSampleType: CaseIterable, SampleTypeProtocol {
         }
     }
     
+    var category: SampleCategory {
+        .nutrition
+    }
+    
+    var config: SampleConfiguration {
+        switch self {
+        default:
+            return .init(.cumulativeSum, chart: .bar, dateInterval: Date.dailyInterval)
+        }
+    }
+    
 }
 
 extension NutritionSampleType: Identifiable {

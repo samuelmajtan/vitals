@@ -49,6 +49,25 @@ enum BodyMeasurementsSampleType: CaseIterable, SampleTypeProtocol {
                 .quantity(.waistCircumference)
         }
     }
+    
+    var category: SampleCategory {
+        .bodyMeasurements
+    }
+    
+    var config: SampleConfiguration {
+        switch self {
+        case .height:
+            return .init(.mostRecent, chart: .line, dateInterval: Date.yearlyInterval)
+        case .bodyMass, .leanBodyMass:
+            return .init(.discreteAverage, chart: .line, dateInterval: Date.monthlyInterval)
+        case .bodyMassIndex:
+            return .init(.discreteAverage, chart: .line, dateInterval: Date.monthlyInterval)
+        case .bodyFatPercentage:
+            return .init(.discreteAverage, chart: .line, dateInterval: Date.monthlyInterval)
+        case .waistCircumference:
+            return .init(.mostRecent, chart: .line, dateInterval: Date.monthlyInterval)
+        }
+    }
 
 }
 

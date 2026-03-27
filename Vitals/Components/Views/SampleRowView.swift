@@ -11,13 +11,11 @@ struct SampleRowView: View {
     // MARK: - Properties
     
     let sample: Sample
-    let category: SampleCategory
 
     // MARK: - Lifecycle
 
-    init(_ sample: Sample, category: SampleCategory) {
+    init(_ sample: Sample) {
         self.sample = sample
-        self.category = category
     }
 
     // MARK: - View
@@ -25,20 +23,20 @@ struct SampleRowView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: Constant.Spacing.xxl) {
             HStack(alignment: .center) {
-                Label(sample.title, systemImage: category.image)
-                    .foregroundStyle(category.color)
-                    .font(.headline.bold())
+                Label(sample.type.title, systemImage: sample.type.category.image)
+                    .foregroundStyle(sample.type.category.color)
+                    .bold()
                 Spacer()
-                Text(sample.date.formatted())
+                Text(sample.date.timeFormatted)
                     .foregroundStyle(.secondary)
-                    .font(.footnote.bold())
+                    .font(.footnote)
             }
             HStack(alignment: .lastTextBaseline, spacing: Constant.Spacing.xs) {
-                Text(sample.value.formatted())
-                    .font(.title.bold())
+                Text(sample.value.shortFormatted)
+                    .font(.title3.bold())
                 Text(sample.unit)
                     .foregroundStyle(.secondary)
-                    .font(.headline.bold())
+                    .font(.subheadline.bold())
                 Spacer()
                 Image(systemName: "chart.dots.scatter")
             }
@@ -50,5 +48,5 @@ struct SampleRowView: View {
 // MARK: - Preview
 
 #Preview {
-    SampleRowView(.init("Heart Rate", date: Date(), value: 79, unit: "BPM"), category: .vitals)
+    SampleRowView(.init(.init(VitalsSampleType.heartRate), date: Date(), value: 79, unit: "BPM"))
 }

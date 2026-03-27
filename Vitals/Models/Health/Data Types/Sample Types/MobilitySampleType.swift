@@ -60,6 +60,25 @@ enum MobilitySampleType: CaseIterable, SampleTypeProtocol {
         }
     }
 
+    var category: SampleCategory {
+        .mobility
+    }
+    
+    var config: SampleConfiguration {
+        switch self {
+        case .walkingSpeed, .stairAscentSpeed, .stairDescentSpeed:
+            return .init(.discreteAverage, chart: .line, dateInterval: Date.weeklyInterval)
+        case .walkingAsymmetryPercentage, .walkingDoubleSupportPercentage:
+            return .init(.discreteAverage, chart: .line, dateInterval: Date.weeklyInterval)
+        case .sixMinuteWalkTestDistance:
+            return .init(.mostRecent, chart: .bar, dateInterval: Date.monthlyInterval)
+        case .appleWalkingSteadiness:
+            return .init(.discreteAverage, chart: .line, dateInterval: Date.monthlyInterval)
+        case .appleWalkingSteadinessEvent:
+            return .init(.mostRecent, chart: .bar, dateInterval: Date.weeklyInterval)
+        }
+    }
+
 }
 
 extension MobilitySampleType: Identifiable {
