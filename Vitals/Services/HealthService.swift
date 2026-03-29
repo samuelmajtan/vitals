@@ -30,7 +30,8 @@ protocol HealthServiceProtocol: AnyObject {
 final class HealthService: HealthServiceProtocol {
 
     // MARK: - Properties
-    
+
+    private let cache: HealthCacheServiceProtocol
     let healthStore: HKHealthStore = .init()
     let readTypes: Set<HKSampleType> = Set(
         SampleCategory.allCases
@@ -39,6 +40,10 @@ final class HealthService: HealthServiceProtocol {
     )
     
     // MARK: - Lifecycle
+
+    init(cache: HealthCacheServiceProtocol) {
+        self.cache = cache
+    }
 
     // MARK: - Methods
 
@@ -119,7 +124,7 @@ final class HealthService: HealthServiceProtocol {
 extension Container {
     
     var healthService: Factory<HealthServiceProtocol> {
-        self { HealthService() }
+        self { HealthService(cache: self.healthCacheService()) }
             .singleton
     }
     
