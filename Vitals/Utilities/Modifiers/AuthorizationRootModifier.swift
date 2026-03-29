@@ -16,6 +16,8 @@ struct AuthorizationRootModifier: ViewModifier {
     private var navigator: Navigator
     @Injected(\.healthService)
     private var healthService
+    @Injected(\.healthStore)
+    private var healthStore
     @State
     private var trigger: Bool = false
     
@@ -27,7 +29,7 @@ struct AuthorizationRootModifier: ViewModifier {
                 }
             }
             .healthDataAccessRequest(
-                store: healthService.healthStore,
+                store: healthStore,
                 readTypes: healthService.readTypes,
                 trigger: trigger
             ) { @Sendable result in

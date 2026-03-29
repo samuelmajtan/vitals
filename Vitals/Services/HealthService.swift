@@ -13,15 +13,14 @@ import HealthKit
 protocol HealthServiceProtocol: AnyObject {
     
     // MARK: - Properties
-    
-    var healthStore: HKHealthStore { get }
+
     var readTypes: Set<HKSampleType> { get }
 
     // MARK: - Methods
 
     func isAvailable() -> Bool
-    func fetchSampleStatistics(for type: AnySampleType) async throws -> Sample?
-    func fetchSamples(for type: AnySampleType, in interval: DateInterval, with limit: Int?) async throws -> [SampleData]
+    func fetchSample(for type: AnySampleType) async throws -> Sample?
+    func fetchSampleData(for type: AnySampleType, in interval: DateInterval, limit: Int?) async throws -> [SampleData]
 
 }
 
@@ -29,103 +28,130 @@ protocol HealthServiceProtocol: AnyObject {
 
 final class HealthService: HealthServiceProtocol {
 
+    // MARK: - Services
+
+    @Injected(\.measurementProvider)
+    private var measurementProvider: MeasurementProviderProtocol
+
     // MARK: - Properties
 
-    private let cache: HealthCacheServiceProtocol
-    let healthStore: HKHealthStore = .init()
     let readTypes: Set<HKSampleType> = Set(
         SampleCategory.allCases
             .flatMap(\.types)
             .map(\.type.sampleType)
     )
-    
-    // MARK: - Lifecycle
-
-    init(cache: HealthCacheServiceProtocol) {
-        self.cache = cache
-    }
 
     // MARK: - Methods
 
     func isAvailable() -> Bool {
-        HKHealthStore.isHealthDataAvailable() ? true : false
+        HKHealthStore.isHealthDataAvailable()
     }
-   
-    func fetchSampleStatistics(for type: AnySampleType) async throws -> Sample? {
-        let dateInterval = type.config.dateInterval
-        let statistics = type.config.statistics
-        
-        let predicate = HKQuery.predicateForSamples(withStart: dateInterval.start, end: dateInterval.end)
-        
-        guard let quantityType = type.type.sampleType as? HKQuantityType else {
-            return nil
+
+    func fetchSample(for type: AnySampleType) async throws -> Sample? {
+        for interval in SampleInterval.allCases {
+            if let sample = try await fetchStatistics(for: type, in: interval.dateInterval, assignedTo: interval) {
+                return sample
+            }
         }
-        let quantityTypeIdentifier = HKQuantityTypeIdentifier(rawValue: type.type.sampleType.identifier)
+        return nil
+    }
 
-        let samplePredicate = HKSamplePredicate.quantitySample(
-            type: quantityType,
-            predicate: predicate
-        )
-
-        let descriptor = HKStatisticsQueryDescriptor(
-            predicate: samplePredicate,
-            options: statistics.value
-        )
-        
-        guard let result = try await descriptor.result(for: healthStore) else {
-            return nil
-        }
-
-        return switch statistics {
-        case .discreteAverage:
-            Sample(type, date: result.endDate, value: result.averageQuantity()?.doubleValue(for: quantityTypeIdentifier.defaultUnit) ?? 0, unit: quantityTypeIdentifier.displayUnit)
-        case .discreteMin:
-            Sample(type, date: result.endDate, value: result.minimumQuantity()?.doubleValue(for: quantityTypeIdentifier.defaultUnit) ?? 0, unit: quantityTypeIdentifier.displayUnit)
-        case .discreteMax:
-            Sample(type, date: result.endDate, value: result.maximumQuantity()?.doubleValue(for: quantityTypeIdentifier.defaultUnit) ?? 0, unit: quantityTypeIdentifier.displayUnit)
-        case .cumulativeSum:
-            Sample(type, date: result.endDate, value: result.sumQuantity()?.doubleValue(for: quantityTypeIdentifier.defaultUnit) ?? 0, unit: quantityTypeIdentifier.displayUnit)
-        case .mostRecent:
-            Sample(type, date: result.endDate, value: result.mostRecentQuantity()?.doubleValue(for: quantityTypeIdentifier.defaultUnit) ?? 0, unit: quantityTypeIdentifier.displayUnit)
-        case .duration:
-            Sample(type, date: result.endDate, value: result.duration()?.doubleValue(for: quantityTypeIdentifier.defaultUnit) ?? 0, unit: quantityTypeIdentifier.displayUnit)
+    func fetchSampleData(
+        for type: AnySampleType,
+        in interval: DateInterval,
+        limit: Int? = nil
+    ) async throws -> [SampleData] {
+        switch type.type {
+        case .quantity(let identifier):
+            return try await measurementProvider
+                .fetchQuantitySamples(type: identifier, interval: interval, limit: limit)
+                .map { SampleData(date: $0.endDate, value: $0.quantity.doubleValue(for: identifier.defaultUnit)) }
         default:
-            Sample(type, date: result.endDate, value: result.averageQuantity()?.doubleValue(for: quantityTypeIdentifier.defaultUnit) ?? 0, unit: quantityTypeIdentifier.displayUnit)
-        }
-    }
-
-    func fetchSamples(for type: AnySampleType, in interval: DateInterval, with limit: Int? = 10) async throws -> [SampleData] {
-        guard let quantityType = type.type.sampleType as? HKQuantityType else {
             return []
         }
-        
-        let predicate = HKQuery.predicateForSamples(
-            withStart: interval.start,
-            end: interval.end
-        )
-        
-        let descriptor = HKSampleQueryDescriptor(
-            predicates: [.quantitySample(type: quantityType, predicate: predicate)],
-            sortDescriptors: [SortDescriptor(\.startDate, order: .reverse)],
-            limit: limit
-        )
-        
-        let quantityTypeIdentifier = HKQuantityTypeIdentifier(rawValue: type.type.sampleType.identifier)
-        
-        return try await descriptor.result(for: healthStore).map {
-            SampleData(date: $0.endDate, value: $0.quantity.doubleValue(for: quantityTypeIdentifier.defaultUnit))
+    }
+
+}
+
+// MARK: - Private
+
+private extension HealthService {
+
+    func fetchStatistics(
+        for type: AnySampleType,
+        in interval: DateInterval,
+        assignedTo sampleInterval: SampleInterval
+    ) async throws -> Sample? {
+        switch type.type {
+        case .quantity(let identifier):
+            return try await fetchQuantitySample(
+                type: type,
+                identifier: identifier,
+                interval: interval,
+                sampleInterval: sampleInterval
+            )
+        case .category(let identifier):
+            return try await fetchCategorySample(
+                type: type,
+                identifier: identifier,
+                interval: interval,
+                sampleInterval: sampleInterval
+            )
+        default:
+            return nil
         }
     }
-   
+
+    func fetchQuantitySample(
+        type: AnySampleType,
+        identifier: HKQuantityTypeIdentifier,
+        interval: DateInterval,
+        sampleInterval: SampleInterval
+    ) async throws -> Sample? {
+        guard let statistics = try await measurementProvider.fetchStatistics(
+            type: identifier,
+            interval: interval,
+            options: type.config.statistics.value
+        ) else { return nil }
+        
+        guard let value = type.config.statistics.extractValue(from: statistics, unit: identifier.defaultUnit),
+              value > 0 else { return nil }
+        
+        return Sample(type, date: statistics.endDate, value: value, unit: identifier.displayUnit, interval: sampleInterval)
+    }
+
+    func fetchCategorySample(
+        type: AnySampleType,
+        identifier: HKCategoryTypeIdentifier,
+        interval: DateInterval,
+        sampleInterval: SampleInterval
+    ) async throws -> Sample? {
+        let samples = try await measurementProvider.fetchCategorySamples(type: identifier, interval: interval)
+        guard !samples.isEmpty else { return nil }
+        
+        let totalHours = samples.reduce(0.0) {
+            $0 + $1.endDate.timeIntervalSince($1.startDate)
+        } / 3600
+        
+        guard totalHours > 0 else { return nil }
+        
+        return Sample(type, date: samples[0].endDate, value: totalHours, unit: "h", interval: sampleInterval)
+    }
+
 }
 
 // MARK: - Factory
 
 extension Container {
-    
+
     var healthService: Factory<HealthServiceProtocol> {
-        self { HealthService(cache: self.healthCacheService()) }
+        self { HealthService() }
             .singleton
     }
-    
+
+    var healthStore: Factory<HKHealthStore> {
+        self { HKHealthStore() }
+            .singleton
+    }
+
 }

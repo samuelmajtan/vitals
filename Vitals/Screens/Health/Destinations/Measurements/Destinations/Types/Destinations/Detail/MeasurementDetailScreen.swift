@@ -36,5 +36,4 @@ struct MeasurementDetailScreen: View {
 // MARK: - Preview
 
 #Preview {
-    MeasurementDetailScreen(.init(.init(.init(VitalsSampleType.heartRate), date: Date(), value: 87, unit: "BPM")))
 }

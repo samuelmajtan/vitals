@@ -7,41 +7,54 @@
 import SwiftUI
 
 struct SampleRowView: View {
-    
+   
     // MARK: - Properties
+
+    let title: String
+    let image: String
+    let color: Color
+    let date: Date
+    let value: Double
+    let unit: String
     
-    let sample: Sample
-    let sampleData: [SampleData]
-
     // MARK: - Lifecycle
-
-    init(_ sample: Sample, sampleData: [SampleData]) {
-        self.sample = sample
-        self.sampleData = sampleData
+    
+    init(
+        _ title: String,
+        image: String,
+        color: Color,
+        date: Date,
+        value: Double,
+        unit: String
+    ) {
+        self.title = title
+        self.image = image
+        self.color = color
+        self.date = date
+        self.value = value
+        self.unit = unit
     }
-
+    
     // MARK: - View
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: Constant.Spacing.xxl) {
             HStack(alignment: .center) {
-                Label(sample.type.title, systemImage: sample.type.category.image)
-                    .foregroundStyle(sample.type.category.color)
+                Label(title, systemImage: image)
+                    .foregroundStyle(color)
                     .bold()
                 Spacer()
-                Text(sample.date.timeFormatted)
+                Text(date.timeFormatted)
                     .foregroundStyle(.secondary)
                     .font(.footnote)
             }
             HStack(alignment: .lastTextBaseline, spacing: Constant.Spacing.xs) {
-                Text(sample.value.shortFormatted)
+                Text(value.shortFormatted)
                     .font(.title3.bold())
-                Text(sample.unit)
+                Text(unit)
                     .foregroundStyle(.secondary)
                     .font(.subheadline.bold())
                 Spacer()
-                OverviewChart(source: sampleData)
-                    .frame(width: 100, height: 50)
             }
         }
     }
@@ -51,8 +64,5 @@ struct SampleRowView: View {
 // MARK: - Preview
 
 #Preview {
-    SampleRowView(.init(
-        .init(VitalsSampleType.heartRate), date: Date(), value: 79, unit: "BPM"),
-                  sampleData: [.init(date: Date(), value: 10)]
-    )
+    SampleRowView("Heart Rate", image: "heart", color: .red, date: Date(), value: 87, unit: "BPM")
 }

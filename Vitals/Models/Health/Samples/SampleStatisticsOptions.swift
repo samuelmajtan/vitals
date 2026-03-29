@@ -36,6 +36,23 @@ enum SampleStatisticsOptions {
         }
     }
 
+    func extractValue(from statistics: HKStatistics, unit: HKUnit) -> Double? {
+        switch self {
+        case .mostRecent:
+            return statistics.mostRecentQuantity()?.doubleValue(for: unit)
+        case .discreteMin:
+            return statistics.minimumQuantity()?.doubleValue(for: unit)
+        case .discreteMax:
+            return statistics.maximumQuantity()?.doubleValue(for: unit)
+        case .cumulativeSum:
+            return statistics.sumQuantity()?.doubleValue(for: unit)
+        case .duration:
+            return statistics.duration()?.doubleValue(for: .second())
+        default:
+            return statistics.averageQuantity()?.doubleValue(for: unit)
+        }
+    }
+
 }
 
 extension SampleStatisticsOptions: Identifiable {

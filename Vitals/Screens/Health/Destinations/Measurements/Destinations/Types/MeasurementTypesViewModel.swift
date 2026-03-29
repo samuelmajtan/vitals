@@ -11,25 +11,22 @@ import FactoryKit
 
 @MainActor
 protocol MeasurementTypesViewModelProtocol: AnyObject, Observable {
-
+    
     // MARK: - Properties
 
     var state: FetchState<String> { get }
     var error: AppError? { get }
-
     var context: MeasurementsDestinations.Context { get }
 
     var dailySamples: [Sample] { get }
     var weeklySamples: [Sample] { get }
     var monthlySamples: [Sample] { get }
-    var emptySamples: [Sample] { get }
+    var emptySamples: [AnySampleType] { get }
     
-    var sampleData: [SampleData] { get }
-
     // MARK: - Methods
 
     func fetchSamples() async
-    func fetchOverviewSamples() async
+    func fetchSampleData(for type: AnySampleType) async -> [SampleData]
 
 }
 
@@ -45,28 +42,19 @@ protocol MeasurementTypesViewModelProtocol: AnyObject, Observable {
     private var healthService: HealthServiceProtocol
 
     // MARK: - Properties
-
-    private(set) var state: FetchState<String>
-    private(set) var error: AppError?
-
-    private(set) var context: MeasurementsDestinations.Context
-
-    private(set) var dailySamples: [Sample] = []
-    private(set) var weeklySamples: [Sample] = []
-    private(set) var monthlySamples: [Sample] = []
-    private(set) var emptySamples: [Sample] = []
     
-    private(set) var sampleData: [SampleData] = []
-
+    private(set) var state: FetchState<String> = .idle
+    private(set) var error: AppError?
+    private(set) var context: MeasurementsDestinations.Context
+    
+    private(set) var dailySamples: [Sample]     = []
+    private(set) var weeklySamples: [Sample]    = []
+    private(set) var monthlySamples: [Sample]   = []
+    private(set) var emptySamples: [AnySampleType] = []
+    
     // MARK: - Lifecycle
-
-    init(
-        state: FetchState<String> = .idle,
-        error: AppError? = nil,
-        _ context: MeasurementsDestinations.Context
-    ) {
-        self.state = state
-        self.error = error
+    
+    init(_ context: MeasurementsDestinations.Context) {
         self.context = context
     }
 
@@ -75,27 +63,47 @@ protocol MeasurementTypesViewModelProtocol: AnyObject, Observable {
 // MARK: - Fetch State
 
 extension MeasurementTypesViewModel {
-
+    
     func fetchSamples() async {
-        let sampleTypes = context.category.types
+        state = .loading
         
-        for sampleType in sampleTypes {
-            if let sample = try? await healthService.fetchSampleStatistics(for: sampleType) {
-                dailySamples.append(sample)
-            }
-        }
-    }
-
-    func fetchOverviewSamples() async {
-        let sampleTypes = context.category.types
+        let types = context.category.types
         
-        for sampleType in sampleTypes {
-            if let result = try? await healthService.fetchSamples(for: sampleType, in: sampleType.config.dateInterval, with: 6) {
-                sampleData = result
+        await withTaskGroup(of: (AnySampleType, Sample?).self) { group in
+            for type in types {
+                group.addTask { [weak self] in
+                    guard let self else { return (type, nil) }
+                    let sample = try? await self.healthService.fetchSample(for: type)
+                    return (type, sample)
+                }
             }
+            
+            var daily: [Sample] = []
+            var weekly: [Sample] = []
+            var monthly: [Sample] = []
+            var empty: [AnySampleType] = []
+            
+            for await (type, sample) in group {
+                switch sample?.interval {
+                case .daily:   daily.append(sample!)
+                case .weekly:  weekly.append(sample!)
+                case .monthly: monthly.append(sample!)
+                case nil:      empty.append(type)
+                }
+            }
+            
+            let order = types.enumerated().reduce(into: [AnyHashable: Int]()) { $0[$1.element.id] = $1.offset }
+            self.dailySamples = daily.sorted { (order[$0.type.id] ?? 0) < (order[$1.type.id] ?? 0) }
+            self.weeklySamples = weekly.sorted { (order[$0.type.id] ?? 0) < (order[$1.type.id] ?? 0) }
+            self.monthlySamples = monthly.sorted { (order[$0.type.id] ?? 0) < (order[$1.type.id] ?? 0) }
+            self.emptySamples = empty.sorted { (order[$0.id] ?? 0) < (order[$1.id] ?? 0) }
         }
+        
     }
-
+    
+    func fetchSampleData(for type: AnySampleType) async -> [SampleData] {
+        (try? await healthService.fetchSampleData(for: type, in: type.config.dateInterval, limit: nil)) ?? []
+    }
 }
 
 // MARK: - Handle State

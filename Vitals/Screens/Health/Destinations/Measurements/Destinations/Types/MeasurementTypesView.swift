@@ -28,49 +28,15 @@ struct MeasurementTypesView: View {
             GradientView(color: viewModel.context.category.color)
             
             List {
-                if viewModel.dailySamples.isNotEmpty {
-                    Section("Today") {
-                        ForEach(viewModel.dailySamples) { sample in
-                            NavigationLink(to: MeasurementTypesDestinations.detail(.init(sample))) {
-                                SampleRowView(sample, sampleData: viewModel.sampleData)
-                                    .task {
-                                        await viewModel.fetchOverviewSamples()
-                                    }
-                            }
-                        }
-                    }
-                }
-                
-                if viewModel.weeklySamples.isNotEmpty {
-                    Section("Past 7 days") {
-                        ForEach(viewModel.weeklySamples) { sample in
-                            NavigationLink(to: MeasurementTypesDestinations.detail(.init(sample))) {
-                                SampleRowView(sample, sampleData: viewModel.sampleData)
-                                    .task {
-                                        await viewModel.fetchOverviewSamples()
-                                    }
-                            }
-                        }
-                    }
-                }
-                
-                if viewModel.monthlySamples.isNotEmpty {
-                    Section("Past Month") {
-                        ForEach(viewModel.monthlySamples) { sample in
-                            NavigationLink(to: MeasurementTypesDestinations.detail(.init(sample))) {
-                                SampleRowView(sample, sampleData: viewModel.sampleData)
-                                    .task {
-                                        await viewModel.fetchOverviewSamples()
-                                    }
-                            }
-                        }
-                    }
+                ForEach(SampleInterval.allCases, id: \.self) { interval in
+                    sectionView(for: interval)
                 }
                 
                 if viewModel.emptySamples.isNotEmpty {
                     Section("No Data Available") {
-                        ForEach(viewModel.emptySamples) { sample in
-                            Text(sample.type.title)
+                        ForEach(viewModel.emptySamples) { type in
+                            Text(type.title)
+                                .foregroundStyle(.secondary)
                         }
                     }
                 }
@@ -78,14 +44,48 @@ struct MeasurementTypesView: View {
             .headerProminence(.increased)
             .listRowSpacing(Constant.Spacing.md)
             .scrollContentBackground(.hidden)
-            .task {
-                await viewModel.fetchSamples()
+            .task { await viewModel.fetchSamples() }
+        }
+    }
+    
+    // MARK: - Section builder
+    
+    @ViewBuilder
+    private func sectionView(for interval: SampleInterval) -> some View {
+        let samples = samples(for: interval)
+        
+        if samples.isNotEmpty {
+            Section(interval.title) {
+                ForEach(samples) { sample in
+                    NavigationLink(to: MeasurementTypesDestinations.detail(.init(sample))) {
+                        SampleRowView(
+                            sample.type.title,
+                            image: sample.type.category.image,
+                            color: sample.type.category.color,
+                            date: sample.date,
+                            value: sample.value,
+                            unit: sample.unit
+                        )
+                    }
+                }
             }
         }
     }
     
+    private func samples(for interval: SampleInterval) -> [Sample] {
+        switch interval {
+        case .daily:   return viewModel.dailySamples
+        case .weekly:  return viewModel.weeklySamples
+        case .monthly: return viewModel.monthlySamples
+        }
+    }
+
 }
 
+// MARK: - Preview
+
 #Preview {
-    MeasurementTypesView(viewModel: MeasurementTypesViewModel(MeasurementsDestinations.Context(.vitals)))
+    MeasurementTypesView(
+        viewModel: MeasurementTypesViewModel(MeasurementsDestinations.Context(.vitals))
+    )
 }

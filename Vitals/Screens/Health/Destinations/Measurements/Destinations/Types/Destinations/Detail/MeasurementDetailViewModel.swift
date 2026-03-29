@@ -69,7 +69,7 @@ extension MeasurementDetailViewModel {
         let sampleType = context.sample.type
         let interval = timeRange.dateInterval
         
-        if let result = try? await healthService.fetchSamples(for: sampleType, in: interval, with: nil) {
+        if let result = try? await healthService.fetchSampleData(for: sampleType, in: interval, limit: nil) {
            sampleData = result
         }
     }
