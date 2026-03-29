@@ -6,4 +6,4 @@
 
 import Foundation
 
-protocol Requestable: Encodable, Equatable { }
+protocol Requestable: Encodable, Equatable, Sendable { }

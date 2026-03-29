@@ -9,7 +9,7 @@ import Defaults
 
 extension Defaults.Keys {
 
-    static var isAuthorized = Key<Bool?>("isAuthorized", default: false)
+    static let loginResponse = Key<LoginResponse?>("loginResponse", default: nil)
 
 }
 

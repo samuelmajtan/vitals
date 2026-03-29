@@ -5,8 +5,10 @@
 //
 
 import Foundation
-import Defaults
 
-struct MeasurementsResponse: Responsable {
-    
+struct LoginRequest: Requestable {
+   
+    let email: String
+    let password: String
+
 }

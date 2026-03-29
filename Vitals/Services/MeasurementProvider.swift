@@ -138,7 +138,7 @@ final actor MeasurementProvider: MeasurementProviderProtocol {
 extension Container {
 
     var measurementProvider: Factory<MeasurementProviderProtocol> {
-        self { @MainActor in MeasurementProvider(self.healthService().healthStore) }
+        self { MeasurementProvider(self.healthService().healthStore) }
             .singleton
     }
 

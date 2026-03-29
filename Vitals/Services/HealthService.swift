@@ -119,7 +119,7 @@ final class HealthService: HealthServiceProtocol {
 extension Container {
     
     var healthService: Factory<HealthServiceProtocol> {
-        self { @MainActor in HealthService() }
+        self { HealthService() }
             .singleton
     }
     

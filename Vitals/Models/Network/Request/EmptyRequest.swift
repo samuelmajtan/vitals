@@ -5,8 +5,5 @@
 //
 
 import Foundation
-import Defaults
 
-struct MeasurementsResponse: Responsable {
-    
-}
+struct EmptyRequest: Requestable { }

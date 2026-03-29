@@ -5,8 +5,10 @@
 //
 
 import Foundation
-import Defaults
 
-struct MeasurementsResponse: Responsable {
-    
+enum CacheKey: String {
+
+    case loginResponse
+    case measurementsResponse
+
 }

@@ -41,7 +41,7 @@ final actor MedicationProvider: MedicationProviderProtocol {
 extension Container {
     
     var medicationProvider: Factory<MedicationProviderProtocol> {
-        self { @MainActor in MedicationProvider(self.healthService().healthStore) }
+        self { MedicationProvider(self.healthService().healthStore) }
             .singleton
     }
     
