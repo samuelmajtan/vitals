@@ -6,35 +6,6 @@
 
 import SwiftUI
 
-enum TimeRange: CaseIterable, Identifiable {
-
-    case lastHour
-    case lastDay
-    case lastWeek
-    case lastMonth
-    case lastYear
-
-    var title: String {
-        switch self {
-        case .lastHour:
-            "H"
-        case .lastDay:
-            "D"
-        case .lastWeek:
-            "W"
-        case .lastMonth:
-            "M"
-        case .lastYear:
-            "Y"
-        }
-    }
-
-    var id: Self {
-        self
-    }
-
-}
-
 struct TimeRangePicker: View {
     
     // MARK: - Properties
