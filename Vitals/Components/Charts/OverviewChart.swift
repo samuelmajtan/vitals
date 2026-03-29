@@ -8,23 +8,30 @@ import SwiftUI
 import Charts
 
 struct OverviewChart: View {
-   
+
     // MARK: - Properties
     
-    let source: Chartable
-
+    let source: [SampleData]
+    
     // MARK: - Lifecycle
     
-    init(_ source: Chartable) {
+    init(source: [SampleData]) {
         self.source = source
     }
 
     // MARK: - View
 
     var body: some View {
-        Text("Overview chart")
+        Chart(source) { data in
+            PointMark(
+                x: .value("Day", data.date),
+                y: .value("Value", data.value)
+            )
+        }
+        .chartXAxis(.hidden)
+        .chartYAxis(.hidden)
     }
-   
+
 }
 
 // MARK: - Preview
