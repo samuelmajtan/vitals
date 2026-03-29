@@ -47,10 +47,10 @@ extension MeasurementTypesDestinations {
     
     struct Context: Equatable, Hashable {
 
-        let type: AnySampleType
+        let sample: Sample
 
-        init(_ type: AnySampleType) {
-            self.type = type
+        init(_ sample: Sample) {
+            self.sample = sample
         }
 
     }

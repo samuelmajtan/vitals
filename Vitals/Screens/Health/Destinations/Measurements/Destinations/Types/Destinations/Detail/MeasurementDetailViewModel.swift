@@ -11,16 +11,19 @@ import FactoryKit
 
 @MainActor
 protocol MeasurementDetailViewModelProtocol: AnyObject, Observable {
-    
+
     // MARK: - Properties
-    
+
     var state: FetchState<String> { get }
     var error: AppError? { get }
     var context: MeasurementTypesDestinations.Context { get }
 
     var timeRange: TimeRange { get set }
+    var sampleData: [SampleData] { get set }
 
     // MARK: - Methods
+
+    func fetchSamples() async
 
 }
 
@@ -29,13 +32,20 @@ protocol MeasurementDetailViewModelProtocol: AnyObject, Observable {
 @MainActor
 @Observable final class MeasurementDetailViewModel: MeasurementDetailViewModelProtocol {
 
+    // MARK: - Services
+
+    @ObservationIgnored
+    @Injected(\.healthService)
+    private var healthService: HealthServiceProtocol
+
     // MARK: - Properties
 
     private(set) var state: FetchState<String>
     private(set) var error: AppError?
     private(set) var context: MeasurementTypesDestinations.Context
 
-    var timeRange: TimeRange
+    var timeRange: TimeRange = .lastDay
+    var sampleData: [SampleData] = []
 
     // MARK: - Lifecycle
     
@@ -43,12 +53,10 @@ protocol MeasurementDetailViewModelProtocol: AnyObject, Observable {
         state: FetchState<String> = .idle,
         error: AppError? = nil,
         _ context: MeasurementTypesDestinations.Context,
-        timeRange: TimeRange = .lastDay
     ) {
         self.state = state
         self.error = error
         self.context = context
-        self.timeRange = timeRange
     }
 
 }
@@ -56,7 +64,16 @@ protocol MeasurementDetailViewModelProtocol: AnyObject, Observable {
 // MARK: - Fetch State
 
 extension MeasurementDetailViewModel {
-    
+
+    func fetchSamples() async {
+        let sampleType = context.sample.type
+        let interval = timeRange.dateInterval
+        
+        if let result = try? await healthService.fetchSamples(for: sampleType, in: interval, with: nil) {
+           sampleData = result
+        }
+    }
+
 }
 
 // MARK: - Handle State

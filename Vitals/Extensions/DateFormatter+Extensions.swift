@@ -17,6 +17,11 @@ extension DateFormatter {
         case yyyyMMddHHmmss = "yyyy-MM-dd HH:mm:ss"
         case ddMMyyyyHHmmss = "dd.MM.yyyy HH:mm:ss"
         case yyyyMMddTHHmmss = "yyyy-MM-dd'T'HH:mm:ss"
+        case HHmm = "HH:mm"
+        case dMMMyyyy = "d MMM yyyy"
+        case dMMM = "d MMM"
+        case d = "d"
+        case MMMyyyy = "MMM yyyy"
 
     }
 

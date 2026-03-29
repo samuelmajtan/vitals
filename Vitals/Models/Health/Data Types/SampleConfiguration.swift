@@ -10,7 +10,7 @@ struct SampleConfiguration {
 
     let statistics: SampleStatisticsOptions
     let chart: SampleChartOptions
-    let dateInterval: DateInterval
+    var dateInterval: DateInterval
 
     init(_ statistics: SampleStatisticsOptions, chart: SampleChartOptions, dateInterval: DateInterval) {
         self.statistics = statistics

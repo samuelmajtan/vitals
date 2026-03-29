@@ -21,7 +21,8 @@ protocol HealthServiceProtocol: AnyObject {
 
     func isAvailable() -> Bool
     func fetchSampleStatistics(for type: AnySampleType) async throws -> Sample?
-    
+    func fetchSamples(for type: AnySampleType, in interval: DateInterval, with limit: Int?) async throws -> [SampleData]
+
 }
 
 // MARK: - Implementation
@@ -60,7 +61,7 @@ final class HealthService: HealthServiceProtocol {
             type: quantityType,
             predicate: predicate
         )
-        
+
         let descriptor = HKStatisticsQueryDescriptor(
             predicate: samplePredicate,
             options: statistics.value
@@ -87,7 +88,30 @@ final class HealthService: HealthServiceProtocol {
             Sample(type, date: result.endDate, value: result.averageQuantity()?.doubleValue(for: quantityTypeIdentifier.defaultUnit) ?? 0, unit: quantityTypeIdentifier.displayUnit)
         }
     }
-    
+
+    func fetchSamples(for type: AnySampleType, in interval: DateInterval, with limit: Int? = 10) async throws -> [SampleData] {
+        guard let quantityType = type.type.sampleType as? HKQuantityType else {
+            return []
+        }
+        
+        let predicate = HKQuery.predicateForSamples(
+            withStart: interval.start,
+            end: interval.end
+        )
+        
+        let descriptor = HKSampleQueryDescriptor(
+            predicates: [.quantitySample(type: quantityType, predicate: predicate)],
+            sortDescriptors: [SortDescriptor(\.startDate, order: .reverse)],
+            limit: limit
+        )
+        
+        let quantityTypeIdentifier = HKQuantityTypeIdentifier(rawValue: type.type.sampleType.identifier)
+        
+        return try await descriptor.result(for: healthStore).map {
+            SampleData(date: $0.endDate, value: $0.quantity.doubleValue(for: quantityTypeIdentifier.defaultUnit))
+        }
+    }
+   
 }
 
 // MARK: - Factory

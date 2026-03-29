@@ -31,8 +31,11 @@ struct MeasurementTypesView: View {
                 if viewModel.dailySamples.isNotEmpty {
                     Section("Today") {
                         ForEach(viewModel.dailySamples) { sample in
-                            NavigationLink(to: MeasurementTypesDestinations.detail(.init(sample.type))) {
-                                SampleRowView(sample)
+                            NavigationLink(to: MeasurementTypesDestinations.detail(.init(sample))) {
+                                SampleRowView(sample, sampleData: viewModel.sampleData)
+                                    .task {
+                                        await viewModel.fetchOverviewSamples()
+                                    }
                             }
                         }
                     }
@@ -41,8 +44,11 @@ struct MeasurementTypesView: View {
                 if viewModel.weeklySamples.isNotEmpty {
                     Section("Past 7 days") {
                         ForEach(viewModel.weeklySamples) { sample in
-                            NavigationLink(to: MeasurementTypesDestinations.detail(.init(sample.type))) {
-                                SampleRowView(sample)
+                            NavigationLink(to: MeasurementTypesDestinations.detail(.init(sample))) {
+                                SampleRowView(sample, sampleData: viewModel.sampleData)
+                                    .task {
+                                        await viewModel.fetchOverviewSamples()
+                                    }
                             }
                         }
                     }
@@ -51,8 +57,11 @@ struct MeasurementTypesView: View {
                 if viewModel.monthlySamples.isNotEmpty {
                     Section("Past Month") {
                         ForEach(viewModel.monthlySamples) { sample in
-                            NavigationLink(to: MeasurementTypesDestinations.detail(.init(sample.type))) {
-                                SampleRowView(sample)
+                            NavigationLink(to: MeasurementTypesDestinations.detail(.init(sample))) {
+                                SampleRowView(sample, sampleData: viewModel.sampleData)
+                                    .task {
+                                        await viewModel.fetchOverviewSamples()
+                                    }
                             }
                         }
                     }

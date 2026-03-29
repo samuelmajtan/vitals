@@ -11,11 +11,13 @@ struct SampleRowView: View {
     // MARK: - Properties
     
     let sample: Sample
+    let sampleData: [SampleData]
 
     // MARK: - Lifecycle
 
-    init(_ sample: Sample) {
+    init(_ sample: Sample, sampleData: [SampleData]) {
         self.sample = sample
+        self.sampleData = sampleData
     }
 
     // MARK: - View
@@ -38,15 +40,19 @@ struct SampleRowView: View {
                     .foregroundStyle(.secondary)
                     .font(.subheadline.bold())
                 Spacer()
-                Image(systemName: "chart.dots.scatter")
+                OverviewChart(source: sampleData)
+                    .frame(width: 100, height: 50)
             }
         }
     }
-
+    
 }
 
 // MARK: - Preview
 
 #Preview {
-    SampleRowView(.init(.init(VitalsSampleType.heartRate), date: Date(), value: 79, unit: "BPM"))
+    SampleRowView(.init(
+        .init(VitalsSampleType.heartRate), date: Date(), value: 79, unit: "BPM"),
+                  sampleData: [.init(date: Date(), value: 10)]
+    )
 }

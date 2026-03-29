@@ -23,7 +23,7 @@ struct MeasurementDetailScreen: View {
 
     var body: some View {
         MeasurementDetailView(viewModel: MeasurementDetailViewModel(context))
-            .navigationTitle(context.type.title)
+            .navigationTitle(context.sample.type.title)
             .navigationBarTitleDisplayMode(.inline)
             .onNavigationReceive { (destination: MeasurementDetailDestinations, navigator) in
                 navigator.navigate(to: destination)
@@ -36,5 +36,5 @@ struct MeasurementDetailScreen: View {
 // MARK: - Preview
 
 #Preview {
-    MeasurementDetailScreen(.init(AnySampleType(VitalsSampleType.heartRate)))
+    MeasurementDetailScreen(.init(.init(.init(VitalsSampleType.heartRate), date: Date(), value: 87, unit: "BPM")))
 }

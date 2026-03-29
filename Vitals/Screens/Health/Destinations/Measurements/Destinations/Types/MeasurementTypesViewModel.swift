@@ -23,10 +23,13 @@ protocol MeasurementTypesViewModelProtocol: AnyObject, Observable {
     var weeklySamples: [Sample] { get }
     var monthlySamples: [Sample] { get }
     var emptySamples: [Sample] { get }
+    
+    var sampleData: [SampleData] { get }
 
     // MARK: - Methods
 
     func fetchSamples() async
+    func fetchOverviewSamples() async
 
 }
 
@@ -52,6 +55,8 @@ protocol MeasurementTypesViewModelProtocol: AnyObject, Observable {
     private(set) var weeklySamples: [Sample] = []
     private(set) var monthlySamples: [Sample] = []
     private(set) var emptySamples: [Sample] = []
+    
+    private(set) var sampleData: [SampleData] = []
 
     // MARK: - Lifecycle
 
@@ -70,7 +75,7 @@ protocol MeasurementTypesViewModelProtocol: AnyObject, Observable {
 // MARK: - Fetch State
 
 extension MeasurementTypesViewModel {
-    
+
     func fetchSamples() async {
         let sampleTypes = context.category.types
         
@@ -80,7 +85,17 @@ extension MeasurementTypesViewModel {
             }
         }
     }
-    
+
+    func fetchOverviewSamples() async {
+        let sampleTypes = context.category.types
+        
+        for sampleType in sampleTypes {
+            if let result = try? await healthService.fetchSamples(for: sampleType, in: sampleType.config.dateInterval, with: 6) {
+                sampleData = result
+            }
+        }
+    }
+
 }
 
 // MARK: - Handle State

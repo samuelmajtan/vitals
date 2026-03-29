@@ -11,20 +11,23 @@ struct AnySampleType: SampleTypeProtocol {
     private let _title: () -> String
     private let _type: () -> SampleType
     private let _category: () -> SampleCategory
-    private let _config: () -> SampleConfiguration
+    private var _config: SampleConfiguration
     private let _id: AnyHashable
 
     var title: String { _title() }
     var type: SampleType { _type() }
     var category: SampleCategory { _category() }
-    var config: SampleConfiguration { _config() }
+    var config: SampleConfiguration {
+        get { _config }
+        set { _config = newValue }
+    }
     var id: AnyHashable { _id }
-
+    
     init<T: SampleTypeProtocol>(_ base: T) {
         _title = { base.title }
         _type = { base.type }
         _category = { base.category }
-        _config = { base.config }
+        _config = base.config
         _id = AnyHashable(base.id)
     }
 
