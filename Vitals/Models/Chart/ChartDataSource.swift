@@ -6,9 +6,10 @@
 
 import Foundation
 
-protocol ChartDataSource: Identifiable {
+protocol ChartDataSource: Equatable, Hashable, Identifiable {
 
-    var category: String { get set }
-    var value: Double { get set }
+    var date: Date { get }
+    var value: Double { get }
+    var id: UUID { get }
 
 }

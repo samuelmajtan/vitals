@@ -6,7 +6,7 @@
 
 import Foundation
 
-struct Sample {
+struct Sample: Equatable, Hashable {
 
     let type: AnySampleType
     let date: Date
