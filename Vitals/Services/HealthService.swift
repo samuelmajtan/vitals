@@ -66,6 +66,8 @@ final class HealthService: HealthServiceProtocol {
             return try await measurementProvider
                 .fetchQuantitySamples(type: identifier, interval: interval, limit: limit)
                 .map { SampleData(date: $0.endDate, value: $0.quantity.doubleValue(for: identifier.defaultUnit)) }
+        case .category(let identifier):
+            return try await fetchCategorySampleData(identifier: identifier, interval: interval)
         default:
             return []
         }
@@ -128,14 +130,39 @@ private extension HealthService {
     ) async throws -> Sample? {
         let samples = try await measurementProvider.fetchCategorySamples(type: identifier, interval: interval)
         guard !samples.isEmpty else { return nil }
-        
+
         let totalHours = samples.reduce(0.0) {
             $0 + $1.endDate.timeIntervalSince($1.startDate)
         } / 3600
-        
+
         guard totalHours > 0 else { return nil }
-        
+
         return Sample(type, date: samples[0].endDate, value: totalHours, unit: "h", interval: sampleInterval)
+    }
+
+    /// Fetches category samples (e.g. sleep) and groups them by day, returning
+    /// daily duration in hours as `SampleData` points.
+    func fetchCategorySampleData(
+        identifier: HKCategoryTypeIdentifier,
+        interval: DateInterval
+    ) async throws -> [SampleData] {
+        let samples = try await measurementProvider.fetchCategorySamples(type: identifier, interval: interval)
+        guard !samples.isEmpty else { return [] }
+
+        let calendar = Calendar.current
+
+        // Group samples by day and compute total duration per day
+        var dailyDurations: [Date: Double] = [:]
+        for sample in samples {
+            let day = calendar.startOfDay(for: sample.startDate)
+            let hours = sample.endDate.timeIntervalSince(sample.startDate) / 3600
+            dailyDurations[day, default: 0] += hours
+        }
+
+        return dailyDurations
+            .filter { $0.value > 0 }
+            .map { SampleData(date: $0.key, value: $0.value) }
+            .sorted { $0.date < $1.date }
     }
 
 }

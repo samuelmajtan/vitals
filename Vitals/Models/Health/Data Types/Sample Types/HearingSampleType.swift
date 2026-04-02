@@ -44,16 +44,23 @@ enum HearingSampleType: CaseIterable, SampleTypeProtocol {
         .hearing
     }
     
+}
+
+extension HearingSampleType {
+    
     var config: SampleConfiguration {
         switch self {
-            
-        case .environmentalAudioExposure, .headphoneAudioExposure:
-            return .init(.discreteAverage, chart: .bar, dateInterval: Date.dailyInterval)
-        case .environmentalAudioExposureEvent, .headphoneAudioExposureEvent:
-            return .init(.mostRecent, chart: .bar, dateInterval: Date.weeklyInterval)
+        case .environmentalAudioExposure:
+            return .init(.discreteAverage, chartStyle: .bar, summaryLabel: .average, dateInterval: Date.dailyInterval)
+        case .headphoneAudioExposure:
+            return .init(.discreteAverage, chartStyle: .bar, summaryLabel: .average, dateInterval: Date.dailyInterval)
+        case .environmentalAudioExposureEvent:
+            return .init(.mostRecent, chartStyle: .bar, summaryLabel: .latest, dateInterval: Date.weeklyInterval)
+        case .headphoneAudioExposureEvent:
+            return .init(.mostRecent, chartStyle: .bar, summaryLabel: .latest, dateInterval: Date.weeklyInterval)
         }
     }
-
+    
 }
 
 extension HearingSampleType: Identifiable {

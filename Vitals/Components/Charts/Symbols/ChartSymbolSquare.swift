@@ -26,8 +26,6 @@ struct ChartSymbolSquare: ChartSymbolShape, InsettableShape {
         self.inset = inset
     }
 
-    // MARK: - Methods
-
     func path(in rect: CGRect) -> Path {
         let cornerRadius: CGFloat = 1
         let minDimension = min(rect.width, rect.height)

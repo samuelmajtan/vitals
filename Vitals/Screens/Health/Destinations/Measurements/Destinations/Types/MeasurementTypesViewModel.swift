@@ -65,7 +65,6 @@ protocol MeasurementTypesViewModelProtocol: AnyObject, Observable {
 extension MeasurementTypesViewModel {
     
     func fetchSamples() async {
-        state = .loading
         
         let types = context.category.types
         
@@ -97,6 +96,7 @@ extension MeasurementTypesViewModel {
             self.weeklySamples = weekly.sorted { (order[$0.type.id] ?? 0) < (order[$1.type.id] ?? 0) }
             self.monthlySamples = monthly.sorted { (order[$0.type.id] ?? 0) < (order[$1.type.id] ?? 0) }
             self.emptySamples = empty.sorted { (order[$0.id] ?? 0) < (order[$1.id] ?? 0) }
+            
         }
         
     }
@@ -104,10 +104,4 @@ extension MeasurementTypesViewModel {
     func fetchSampleData(for type: AnySampleType) async -> [SampleData] {
         (try? await healthService.fetchSampleData(for: type, in: type.config.dateInterval, limit: nil)) ?? []
     }
-}
-
-// MARK: - Handle State
-
-private extension MeasurementTypesViewModel {
-
 }

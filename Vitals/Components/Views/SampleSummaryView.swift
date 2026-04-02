@@ -10,15 +10,15 @@ struct SampleSummaryView: View {
 
     // MARK: - Properties
 
-    let title: String
+    let label: SummaryLabel
     let value: Double
     let unit: String
     let timeRange: TimeRange
 
     // MARK: - Lifecycle
 
-    init(_ title: String, value: Double, unit: String, timeRange: TimeRange) {
-        self.title = title
+    init(_ label: SummaryLabel, value: Double, unit: String, timeRange: TimeRange) {
+        self.label = label
         self.value = value
         self.unit = unit
         self.timeRange = timeRange
@@ -28,7 +28,7 @@ struct SampleSummaryView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(title.uppercased())
+            Text(label.title.uppercased())
                 .foregroundStyle(.secondary)
                 .font(.caption.bold())
             HStack(alignment: .lastTextBaseline, spacing: Constant.Spacing.xs) {
@@ -50,5 +50,4 @@ struct SampleSummaryView: View {
 // MARK: - Preview
 
 #Preview {
-    SampleSummaryView("Range", value: 103, unit: "BPM", timeRange: .lastDay)
 }

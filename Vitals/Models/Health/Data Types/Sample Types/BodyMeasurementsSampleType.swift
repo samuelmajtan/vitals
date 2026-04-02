@@ -54,21 +54,27 @@ enum BodyMeasurementsSampleType: CaseIterable, SampleTypeProtocol {
         .bodyMeasurements
     }
     
+}
+
+extension BodyMeasurementsSampleType {
+    
     var config: SampleConfiguration {
         switch self {
         case .height:
-            return .init(.mostRecent, chart: .line, dateInterval: Date.yearlyInterval)
-        case .bodyMass, .leanBodyMass:
-            return .init(.discreteAverage, chart: .line, dateInterval: Date.monthlyInterval)
+            return .init(.mostRecent, chartStyle: .line, summaryLabel: .latest, dateInterval: Date.yearlyInterval)
+        case .bodyMass:
+            return .init(.discreteAverage, chartStyle: .interpolatedLine, summaryLabel: .average, dateInterval: Date.monthlyInterval)
+        case .leanBodyMass:
+            return .init(.discreteAverage, chartStyle: .interpolatedLine, summaryLabel: .average, dateInterval: Date.monthlyInterval)
         case .bodyMassIndex:
-            return .init(.discreteAverage, chart: .line, dateInterval: Date.monthlyInterval)
+            return .init(.discreteAverage, chartStyle: .interpolatedLine, summaryLabel: .average, dateInterval: Date.monthlyInterval)
         case .bodyFatPercentage:
-            return .init(.discreteAverage, chart: .line, dateInterval: Date.monthlyInterval)
+            return .init(.discreteAverage, chartStyle: .interpolatedLine, summaryLabel: .average, dateInterval: Date.monthlyInterval)
         case .waistCircumference:
-            return .init(.mostRecent, chart: .line, dateInterval: Date.monthlyInterval)
+            return .init(.mostRecent, chartStyle: .line, summaryLabel: .latest, dateInterval: Date.monthlyInterval)
         }
     }
-
+    
 }
 
 extension BodyMeasurementsSampleType: Identifiable {

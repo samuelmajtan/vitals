@@ -7,15 +7,23 @@
 import Foundation
 
 struct SampleConfiguration {
-
     let statistics: SampleStatisticsOptions
-    let chart: SampleChartOptions
-    var dateInterval: DateInterval
+    let chartStyle: ChartStyle
+    let summaryLabel: SummaryLabel
+    let dateInterval: DateInterval
+    let barUnit: Calendar.Component
 
-    init(_ statistics: SampleStatisticsOptions, chart: SampleChartOptions, dateInterval: DateInterval) {
-        self.statistics = statistics
-        self.chart = chart
+    init(
+        _ statistics: SampleStatisticsOptions,
+        chartStyle: ChartStyle,
+        summaryLabel: SummaryLabel = .range,
+        dateInterval: DateInterval,
+        barUnit: Calendar.Component = .day
+    ) {
+        self.statistics   = statistics
+        self.chartStyle   = chartStyle
+        self.summaryLabel = summaryLabel
         self.dateInterval = dateInterval
+        self.barUnit      = barUnit
     }
-
 }

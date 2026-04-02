@@ -38,18 +38,22 @@ enum SleepSampleType: CaseIterable, SampleTypeProtocol {
     var category: SampleCategory {
         .sleep
     }
+
+}
+
+extension SleepSampleType {
     
     var config: SampleConfiguration {
         switch self {
         case .sleepAnalysis:
-            return .init(.duration, chart: .bar, dateInterval: Date.weeklyInterval)
+            return .init(.duration, chartStyle: .bar, summaryLabel: .total, dateInterval: Date.weeklyInterval)
         case .mindfulSession:
-            return .init(.duration, chart: .bar, dateInterval: Date.weeklyInterval)
+            return .init(.duration, chartStyle: .bar, summaryLabel: .total, dateInterval: Date.weeklyInterval)
         case .appleSleepingWristTemperature:
-            return .init(.discreteAverage, chart: .line, dateInterval: Date.weeklyInterval)
+            return .init(.discreteAverage, chartStyle: .interpolatedLine, summaryLabel: .average, dateInterval: Date.weeklyInterval)
         }
     }
-
+    
 }
     
 extension SleepSampleType: Identifiable {

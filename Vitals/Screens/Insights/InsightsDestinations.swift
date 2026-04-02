@@ -11,29 +11,32 @@ import NavigatorUI
 
 @MainActor
 enum InsightsDestinations: Hashable, @MainActor NavigationDestination {
-    
+
     case placeholder
-    
+
 }
 
 // MARK: - Views
 
 extension InsightsDestinations {
-    
+
     var body: some View {
-        Text("Place destinations here...")
+        switch self {
+        case .placeholder:
+            EmptyView()
+        }
     }
-    
+
 }
 
 // MARK: - Methods
 
 extension InsightsDestinations {
-    
+
     var method: NavigationMethod {
         switch self {
         default: .push
         }
     }
-    
+
 }

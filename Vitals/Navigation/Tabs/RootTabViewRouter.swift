@@ -17,7 +17,6 @@ struct RootTabViewRouter: NavigationRouteHandling {
                 .reset,
                 .send(RootTab.home),
                 .authorizationRequired,
-                .send(HomeDestinations.placeholder)
             )
         case .home:
             navigator.perform(

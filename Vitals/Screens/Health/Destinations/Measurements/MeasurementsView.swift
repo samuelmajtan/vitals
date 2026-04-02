@@ -19,24 +19,52 @@ struct MeasurementsView: View {
     init(viewModel: MeasurementsViewModelProtocol) {
         self.viewModel = viewModel
     }
-    
+
     // MARK: - View
-    
+
     var body: some View {
         List {
             ForEach(SampleCategory.allCases) { category in
                 NavigationLink(to: MeasurementsDestinations.types(.init(category))) {
-                    HStack(alignment: .center) {
-                        Image(systemName: category.image)
-                            .foregroundStyle(category.color)
-                        Text(category.title)
-                            .foregroundStyle(.primary)
-                            .bold()
-                    }
+                    categoryRow(category)
                 }
             }
         }
-        .listStyle(.inset)
+        .listStyle(.insetGrouped)
+        .listRowSpacing(Constant.Spacing.xs)
     }
-    
+
+}
+
+// MARK: - Category Row
+
+private extension MeasurementsView {
+
+    func categoryRow(_ category: SampleCategory) -> some View {
+        HStack(spacing: Constant.Spacing.md) {
+            Image(systemName: category.image)
+                .font(.body.bold())
+                .foregroundStyle(.white)
+                .frame(width: 36, height: 36)
+                .background(category.color.gradient)
+                .clipShape(RoundedRectangle(cornerRadius: Constant.Radius.sm))
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text(category.title)
+                    .foregroundStyle(.primary)
+                    .font(.body.bold())
+                Text("\(category.types.count) measurements")
+                    .foregroundStyle(.secondary)
+                    .font(.caption)
+            }
+        }
+        .padding(.vertical, Constant.Spacing.xs)
+    }
+
+}
+
+// MARK: - Preview
+
+#Preview {
+    MeasurementsView(viewModel: MeasurementsViewModel())
 }

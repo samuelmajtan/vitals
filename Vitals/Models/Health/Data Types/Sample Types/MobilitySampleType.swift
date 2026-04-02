@@ -64,21 +64,31 @@ enum MobilitySampleType: CaseIterable, SampleTypeProtocol {
         .mobility
     }
     
+}
+
+extension MobilitySampleType {
+    
     var config: SampleConfiguration {
         switch self {
-        case .walkingSpeed, .stairAscentSpeed, .stairDescentSpeed:
-            return .init(.discreteAverage, chart: .line, dateInterval: Date.weeklyInterval)
-        case .walkingAsymmetryPercentage, .walkingDoubleSupportPercentage:
-            return .init(.discreteAverage, chart: .line, dateInterval: Date.weeklyInterval)
+        case .walkingSpeed:
+            return .init(.discreteAverage, chartStyle: .line, summaryLabel: .average, dateInterval: Date.weeklyInterval)
+        case .walkingAsymmetryPercentage:
+            return .init(.discreteAverage, chartStyle: .interpolatedLine, summaryLabel: .average, dateInterval: Date.weeklyInterval)
+        case .walkingDoubleSupportPercentage:
+            return .init(.discreteAverage, chartStyle: .interpolatedLine, summaryLabel: .average, dateInterval: Date.weeklyInterval)
+        case .stairAscentSpeed:
+            return .init(.discreteAverage, chartStyle: .line, summaryLabel: .average, dateInterval: Date.weeklyInterval)
+        case .stairDescentSpeed:
+            return .init(.discreteAverage, chartStyle: .line, summaryLabel: .average, dateInterval: Date.weeklyInterval)
         case .sixMinuteWalkTestDistance:
-            return .init(.mostRecent, chart: .bar, dateInterval: Date.monthlyInterval)
+            return .init(.mostRecent, chartStyle: .bar, summaryLabel: .latest, dateInterval: Date.monthlyInterval)
         case .appleWalkingSteadiness:
-            return .init(.discreteAverage, chart: .line, dateInterval: Date.monthlyInterval)
+            return .init(.discreteAverage, chartStyle: .interpolatedLine, summaryLabel: .average, dateInterval: Date.monthlyInterval)
         case .appleWalkingSteadinessEvent:
-            return .init(.mostRecent, chart: .bar, dateInterval: Date.weeklyInterval)
+            return .init(.mostRecent, chartStyle: .bar, summaryLabel: .latest, dateInterval: Date.weeklyInterval)
         }
     }
-
+    
 }
 
 extension MobilitySampleType: Identifiable {

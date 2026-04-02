@@ -219,13 +219,17 @@ enum SymptomSampleType: CaseIterable, SampleTypeProtocol {
         .symptoms
     }
     
+}
+
+extension SymptomSampleType {
+    
     var config: SampleConfiguration {
         switch self {
         default:
-            return .init(.mostRecent, chart: .bar, dateInterval: Date.monthlyInterval)
+            return .init(.mostRecent, chartStyle: .bar, summaryLabel: .latest, dateInterval: Date.monthlyInterval)
         }
     }
-
+    
 }
 
 extension SymptomSampleType: Identifiable {

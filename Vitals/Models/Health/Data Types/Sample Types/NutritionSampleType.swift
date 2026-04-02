@@ -219,10 +219,25 @@ enum NutritionSampleType: CaseIterable, SampleTypeProtocol {
         .nutrition
     }
     
+    
+}
+
+extension NutritionSampleType {
+    
     var config: SampleConfiguration {
         switch self {
+        case .dietaryEnergyConsumed:
+            return .init(.cumulativeSum, chartStyle: .bar, summaryLabel: .total, dateInterval: Date.dailyInterval)
+        case .dietaryWater:
+            return .init(.cumulativeSum, chartStyle: .bar, summaryLabel: .total, dateInterval: Date.dailyInterval)
+        case .dietaryCarbohydrates, .dietaryFiber, .dietarySugar,
+                .dietaryFatTotal, .dietaryFatMonounsaturated,
+                .dietaryFatPolyunsaturated, .dietaryFatSaturated,
+                .dietaryCholesterol, .dietaryProtein:
+            return .init(.cumulativeSum, chartStyle: .bar, summaryLabel: .total, dateInterval: Date.dailyInterval)
         default:
-            return .init(.cumulativeSum, chart: .bar, dateInterval: Date.dailyInterval)
+            // Vitamíny a minerály
+            return .init(.cumulativeSum, chartStyle: .bar, summaryLabel: .total, dateInterval: Date.dailyInterval)
         }
     }
     

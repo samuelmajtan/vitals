@@ -104,33 +104,41 @@ enum VitalsSampleType: CaseIterable, SampleTypeProtocol {
         .vitals
     }
 
+}
+
+extension VitalsSampleType {
+    
     var config: SampleConfiguration {
         switch self {
-        case .heartRate, .walkingHeartRateAverage:
-            return .init(.discreteAverage, chart: .line, dateInterval: Date.dailyInterval)
+        case .heartRate:
+            return .init(.discreteAverage, chartStyle: .rangeBar, summaryLabel: .range, dateInterval: Date.dailyInterval, barUnit: .hour)
         case .restingHeartRate:
-            return .init(.discreteAverage, chart: .line, dateInterval: Date.weeklyInterval)
+            return .init(.discreteAverage, chartStyle: .line, summaryLabel: .average, dateInterval: Date.weeklyInterval)
         case .heartRateVariabilitySDNN:
-            return .init(.discreteAverage, chart: .line, dateInterval: Date.weeklyInterval)
+            return .init(.discreteAverage, chartStyle: .interpolatedLine, summaryLabel: .average, dateInterval: Date.weeklyInterval)
+        case .walkingHeartRateAverage:
+            return .init(.discreteAverage, chartStyle: .line, summaryLabel: .average, dateInterval: Date.dailyInterval)
         case .heartRateRecoveryOneMinute:
-            return .init(.mostRecent, chart: .line, dateInterval: Date.monthlyInterval)
-        case .lowHeartRateEvent, .highHeartRateEvent, .irregularHeartRhythmEvent:
-            return .init(.mostRecent, chart: .bar, dateInterval: Date.monthlyInterval)
-        case .respiratoryRate:
-            return .init(.discreteAverage, chart: .line, dateInterval: Date.weeklyInterval)
-        case .bloodPressureSystolic, .bloodPressureDiastolic:
-            return .init(.discreteAverage, chart: .line, dateInterval: Date.weeklyInterval)
-        case .bodyTemperature:
-            return .init(.discreteAverage, chart: .line, dateInterval: Date.weeklyInterval)
-        case .oxygenSaturation:
-            return .init(.discreteAverage, chart: .line, dateInterval: Date.dailyInterval)
+            return .init(.mostRecent, chartStyle: .line, summaryLabel: .latest, dateInterval: Date.monthlyInterval)
         case .atrialFibrillationBurden:
-            return .init(.discreteAverage, chart: .line, dateInterval: Date.monthlyInterval)
+            return .init(.discreteAverage, chartStyle: .bar, summaryLabel: .average, dateInterval: Date.monthlyInterval)
+        case .oxygenSaturation:
+            return .init(.discreteAverage, chartStyle: .line, summaryLabel: .average, dateInterval: Date.dailyInterval)
+        case .bodyTemperature:
+            return .init(.discreteAverage, chartStyle: .interpolatedLine, summaryLabel: .average, dateInterval: Date.weeklyInterval)
+        case .bloodPressureSystolic:
+            return .init(.discreteAverage, chartStyle: .line, summaryLabel: .average, dateInterval: Date.weeklyInterval)
+        case .bloodPressureDiastolic:
+            return .init(.discreteAverage, chartStyle: .line, summaryLabel: .average, dateInterval: Date.weeklyInterval)
+        case .respiratoryRate:
+            return .init(.discreteAverage, chartStyle: .interpolatedLine, summaryLabel: .average, dateInterval: Date.weeklyInterval)
+        case .lowHeartRateEvent, .highHeartRateEvent, .irregularHeartRhythmEvent:
+            return .init(.mostRecent, chartStyle: .bar, summaryLabel: .latest, dateInterval: Date.monthlyInterval)
         case .heartbeatSeries, .electrocardiogram:
-            return .init(.mostRecent, chart: .line, dateInterval: Date.dailyInterval)
+            return .init(.mostRecent, chartStyle: .point, summaryLabel: .latest, dateInterval: Date.dailyInterval)
         }
     }
-
+    
 }
 
 extension VitalsSampleType: Identifiable {

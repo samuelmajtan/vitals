@@ -11,29 +11,32 @@ import NavigatorUI
 
 @MainActor
 enum HomeDestinations: Hashable, @MainActor NavigationDestination {
-    
-    case placeholder
-    
+
+    case measurements(MeasurementsDestinations.Context)
+
 }
 
 // MARK: - Views
 
 extension HomeDestinations {
-    
+
     var body: some View {
-        Text("Place destinations here...")
+        switch self {
+        case .measurements(let context):
+            MeasurementTypesScreen(context)
+        }
     }
-    
+
 }
 
 // MARK: - Methods
 
 extension HomeDestinations {
-    
+
     var method: NavigationMethod {
         switch self {
         default: .push
         }
     }
-    
+
 }

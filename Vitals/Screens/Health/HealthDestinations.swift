@@ -11,16 +11,17 @@ import NavigatorUI
 
 @MainActor
 enum HealthDestinations: Hashable, @MainActor NavigationDestination {
-    
+
     case measurements
     case medications
-    
+    case categoryDetail(MeasurementsDestinations.Context)
+
 }
 
 // MARK: - Views
 
 extension HealthDestinations {
-    
+
     @ViewBuilder
     var body: some View {
         switch self {
@@ -28,19 +29,21 @@ extension HealthDestinations {
             MeasurementsScreen()
         case .medications:
             MedicationsScreen()
+        case .categoryDetail(let context):
+            MeasurementTypesScreen(context)
         }
     }
-    
+
 }
 
 // MARK: - Methods
 
 extension HealthDestinations {
-    
+
     var method: NavigationMethod {
         switch self {
         default: .push
         }
     }
-    
+
 }
